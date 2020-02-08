@@ -1,0 +1,28 @@
+﻿<Window x:Class="ETGDGRegistration.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ETGDGRegistration"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000">
+    <Grid>
+        <ListView Name="excelStudents" Width="Auto" Grid.Row="0"
+                                    >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                                    DisplayMemberBinding="{Binding EXName}"
+                                    Header="ሙሉ ስም" Width="Auto" />
+                    <GridViewColumn
+                                    DisplayMemberBinding="{Binding EXId}"
+                                    Header="መታወቂያ" Width="Auto" />
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="610,75,0,0" VerticalAlignment="Top" Width="135" Height="55" Click="Button_Click"/>
+
+    </Grid>
+</Window>
