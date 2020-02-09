@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IronXL;
 using DagiCaliburn.Models;
+using System.Windows;
 
 namespace DagiCaliburn.ViewModels
 {
@@ -93,55 +94,118 @@ namespace DagiCaliburn.ViewModels
 
         private void CreateExcel()
         {
-            string filename = "Data";
-            WorkBook wb = WorkBook.Create(ExcelFileFormat.XLSX);
-            wb.Metadata.Author = "GDG Filtering Software";
-            WorkSheet ws = wb.CreateWorkSheet("Main Sheet");
-            int counter = 2;
-            string[] headers = new[] { "Type", "TimeStamp", "Email Address", "Full Name", "Phone Number", "Gender",
+            try
+            {
+                string filename = "Data";
+                WorkBook wb = WorkBook.Create(ExcelFileFormat.XLSX);
+                wb.Metadata.Author = "GDG Filtering Software";
+                WorkSheet ws = wb.CreateWorkSheet("Main Sheet");
+                int counter = 2;
+                string[] headers = new[] { "Type", "TimeStamp", "Email Address", "Full Name", "Phone Number", "Gender",
                 "Number of Women", "Educational Background", "Thoughts", "Fully Parsed ? ", "Errors while Parsing" };
-            char[] alphas = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; 
-            for (int i=0; i < 11; i++)
-            {
-                ws[$"{alphas[i]}{1}"].Value = headers[i];
-            }
-            foreach(StudentModel student in mouldedStudents)
-            {
-                ws[$"A{counter}"].Value = student.Type;
-                ws[$"B{counter}"].Value = student.Timestamp;
-                ws[$"C{counter}"].Value = student.Email;
-                ws[$"D{counter}"].Value = student.Name;
-                ws[$"E{counter}"].Value = student.Phone;
-                ws[$"F{counter}"].Value = student.Gender.ToString();
-                ws[$"G{counter}"].Value = student.Women;
-                ws[$"H{counter}"].Value = student.EducationalBG;
-                ws[$"I{counter}"].Value = student.ShortThoughts;
-                ws[$"J{counter}"].Value = student.Params;
-                ws[$"K{counter}"].Value = student.Errors;
-                if(student.Type.Equals("Team Leader"))
+                char[] alphas = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+                for (int i = 0; i < 11; i++)
                 {
-                    Console.WriteLine($"{student.Name}, membs = {student.Team.Count}");
-                    for(int mem = 0; mem < student.Team.Count; mem++)
-                    {
-                        counter++;
-                        StudentModel member = student.Team[mem];
-                        Console.WriteLine($"Mem: {mem}, {member.Name}");
-                        ws[$"A{counter}"].Value = member.Type + " ("+member.TeamLeader+")";
-                        ws[$"C{counter}"].Value = member.Email;
-                        ws[$"D{counter}"].Value = member.Name;
-                        ws[$"E{counter}"].Value = member.Phone;
-                        ws[$"J{counter}"].Value = member.Params;
-                        ws[$"K{counter}"].Value = member.Errors;
-                        member = null;
-                    }
-                    counter++;
-                }
-            }
+                    ws[$"{alphas[i]}{1}"].Value = headers[i];
 
-           
-            ws["A1:L1"].Style.SetBackgroundColor("#f4efef");
-            wb.SaveAs("Data.xlsx");
+
+                }
+                foreach (StudentModel student in mouldedStudents)
+                {
+                    ws[$"A{counter}"].Value = student.Type;
+                    ws[$"B{counter}"].Value = student.Timestamp;
+                    ws[$"C{counter}"].Value = student.Email;
+                    ws[$"D{counter}"].Value = student.Name;
+                    if (student.Phone == 0)
+                    {
+                        ws[$"E{counter}"].Value = "";
+                    }
+                    else
+                    {
+                        ws[$"E{counter}"].Value = student.Phone;
+                    }
+                    ws[$"F{counter}"].Value = student.Gender.ToString();
+                    ws[$"G{counter}"].Value = student.Women;
+                    ws[$"H{counter}"].Value = student.EducationalBG;
+                    ws[$"I{counter}"].Value = student.ShortThoughts;
+                    ws[$"J{counter}"].Value = student.Params;
+                    ws[$"K{counter}"].Value = student.Errors;
+                    if (student.Errors.Length > 1)
+                    {
+                        ws[$"K{counter}"].Style.SetBackgroundColor("#e1ff00");
+                        if (student.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
+                        {
+                            ws.Rows[counter - 1].Style.SetBackgroundColor("#ff0000");
+                        }
+                        else if (student.Errors.Contains("Invalid Phone Number."))
+                        {
+                            ws[$"E{counter}"].Style.SetBackgroundColor("#e1ff00");
+                        }
+                        else if (student.Errors.Contains("Name Parsing Error."))
+                        {
+                            ws[$"D{counter}"].Style.SetBackgroundColor("#e1ff00");
+                        }
+                        else if (student.Errors.Contains("Email Parsing Error."))
+                        {
+                            ws[$"C{counter}"].Style.SetBackgroundColor("#e1ff00");
+                        }
+                    }
+                    if (student.Type.Equals("Team Leader"))
+                    {
+                        Console.WriteLine($"{student.Name}, membs = {student.Team.Count}");
+                        for (int mem = 0; mem < student.Team.Count; mem++)
+                        {
+                            counter++;
+                            StudentModel member = student.Team[mem];
+                            Console.WriteLine($"Mem: {mem}, {member.Name}");
+                            ws[$"A{counter}"].Value = member.Type + " (" + member.TeamLeader + ")";
+                            ws[$"C{counter}"].Value = member.Email;
+                            ws[$"D{counter}"].Value = member.Name;
+                            if (member.Phone == 0)
+                            {
+                                ws[$"E{counter}"].Value = "";
+                            }
+                            else
+                            {
+                                ws[$"E{counter}"].Value = member.Phone;
+                            }
+                            ws[$"J{counter}"].Value = member.Params;
+                            ws[$"K{counter}"].Value = member.Errors;
+                            if (member.Errors.Length > 1)
+                            {
+                                ws[$"K{counter}"].Style.SetBackgroundColor("#e1ff00");
+                                if (member.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
+                                {
+                                    ws.Rows[counter - 1].Style.SetBackgroundColor("#ff0000");
+                                }
+                                else if (member.Errors.Contains("Invalid Phone Number."))
+                                {
+                                    ws[$"E{counter}"].Style.SetBackgroundColor("#e1ff00");
+                                }
+                                else if (member.Errors.Contains("Name Parsing Error."))
+                                {
+                                    ws[$"D{counter}"].Style.SetBackgroundColor("#e1ff00");
+                                }
+                                else if (member.Errors.Contains("Email Parsing Error."))
+                                {
+                                    ws[$"C{counter}"].Style.SetBackgroundColor("#e1ff00");
+                                }
+                            }
+                            member = null;
+                        }
+                        counter++;
+                    }
+                }
+
+
+                ws["A1:L1"].Style.SetBackgroundColor("#c4c4c4");
+                wb.SaveAs("Data.xlsx");
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
         }
     }
 }

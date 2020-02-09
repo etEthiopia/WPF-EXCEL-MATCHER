@@ -56,7 +56,7 @@ namespace DagiCaliburn.Models
                         MessageBox.Show("Invalid username/password, please try again");
                         break;
                     default:
-                        MessageBox.Show("Failed to Connect");
+                        MessageBox.Show("Failed to Connect, Restart the Database Server");
                         break;
                 }
                 return false;
