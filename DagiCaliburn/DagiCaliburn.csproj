@@ -161,6 +161,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\Database.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="ViewModels\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\ApplicantsViewModel.cs" />

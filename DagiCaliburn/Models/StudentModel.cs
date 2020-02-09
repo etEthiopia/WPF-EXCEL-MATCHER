@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,7 @@ namespace DagiCaliburn.Models
         public string EducationalBG { get { return _educationalbg; } set { _educationalbg = value; } }
         public string ShortThoughts { get { return _shortthoughts; } set { _shortthoughts = value; } }
         public string TeamLeader { get { return _teamleader; } set { _teamleader = value; } }
+
         public List<StudentModel> Team { get { return _team; } set { _team = value; } }
 
 
@@ -113,9 +115,17 @@ namespace DagiCaliburn.Models
                 Console.WriteLine($"Women Error, Set to '0' by default");
             }
 
+            
+
             EducationalBG = edbg;
             ShortThoughts = thoughts;
-
+            Timestamp = timestamp;
+            if (StudentModel.CheckForDuplicate(Email)){
+                Params = false;
+                string errors = "THIS APPLICANT HAS COMPETED BEFORE. " + Errors;
+                Errors = errors;
+                Console.WriteLine($"Dup APPLICANT Error : {Params} : {Errors}");
+            }
             
         }
 
@@ -181,6 +191,13 @@ namespace DagiCaliburn.Models
                         {
                             stu.Email = attr.Trim();
                             Console.WriteLine($"Email Added: {attr.Trim()}");
+                            if (StudentModel.CheckForDuplicate(stu.Email))
+                            {
+                                stu.Params = false;
+                                string errors = "THIS APPLICANT HAS COMPETED BEFORE. " + stu.Errors;
+                                stu.Errors = errors;
+                                Console.WriteLine($"Dup APPLICANT Error : {stu.Params} : {stu.Errors}");
+                            }
                         }
                         else if (attr.Length > 3 && Regex.IsMatch(attr.Trim(), @"^[a-zA-z ]+$"))
                         {
@@ -209,6 +226,8 @@ namespace DagiCaliburn.Models
                         
                         
                     }
+                    
+
                     Console.WriteLine($"All is Good, about to be Added");
                     StudentModel c = stu;
                     students.Add(c);
@@ -222,6 +241,41 @@ namespace DagiCaliburn.Models
                 Console.WriteLine($"Error Happened, Message = {e.Message}");
                 return students;
             }
+        }
+
+        private static bool CheckForDuplicate(string email)
+        {
+            
+                
+                string query = $"SELECT COUNT(number) from competetors WHERE email = '{email}'";
+                bool dup = false;
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+
+                    Database.instance.connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        if(int.Parse(reader["Count(number)"].ToString()) > 0)
+                    {
+                        dup = true;
+                    }
+                        
+
+
+                    }
+                Database.instance.connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Duplicate Exception, {e.Message}");
+                }
+
+                return dup;
+            
         }
     }
 }

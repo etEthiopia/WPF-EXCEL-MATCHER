@@ -13,6 +13,7 @@ namespace DagiCaliburn.ViewModels
     {
         private bool _showDuplicatesIsVisible = true;
         private string _ffile = "";
+        
 
         public string FFile {
             get { return _ffile; }
@@ -37,7 +38,8 @@ namespace DagiCaliburn.ViewModels
                 //WorkSheet ws = wb.WorkSheets.First();
                 //string cellValue = ws["A1"].ToString();
                 //Console.WriteLine($"A2: {cellValue}");
-                ReadExcel();
+                //ReadExcel();
+                CreateExcel();
             }
             //string k = "Dagmawi Negussu, 0937886725. daginegussu@gmail.com" +
             //    ": Bereket Yohannes, 0912345678, bekijohn@gmail.com";
@@ -77,6 +79,23 @@ namespace DagiCaliburn.ViewModels
             {
                 Console.WriteLine("Error : " + e.Message);
             }
+        }
+
+        private void CreateExcel()
+        {
+            string filename = "Data";
+            WorkBook wb = WorkBook.Create(ExcelFileFormat.XLSX);
+            wb.Metadata.Author = "GDG Filtering Software";
+            WorkSheet ws = wb.CreateWorkSheet("Main Sheet");
+            string[] headers = new[] { "Type", "TimeStamp", "Email Address", "Full Name", "Phone Number", "Gender", "Number of Women", "Educational Background", "Thoughts", "Fully Parsed", "Errors while Parsing" };
+            char[] alphas = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; 
+            for (int i=0; i < 11; i++)
+            {
+                ws[$"{alphas[i]}{1}"].Value = headers[i];
+            }
+           
+            ws["A1:M1"].Style.SetBackgroundColor("#f4efef");
+            wb.SaveAs("Data.xlsx");
         }
     }
 }
