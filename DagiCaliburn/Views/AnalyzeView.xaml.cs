@@ -57,6 +57,7 @@ namespace DagiCaliburn.Views
                     DragText.FontSize = 25;
                     e.Handled = true;
                     IndexViewModel.analyzeView.ShowDuplicatesIsVisible = true;
+                    IndexViewModel.analyzeView.FFile = FFile;
                 }
                 else
                 {

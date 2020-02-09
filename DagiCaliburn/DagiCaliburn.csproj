@@ -161,6 +161,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\StudentModel.cs" />
     <Compile Include="ViewModels\AnalyzeViewModel.cs" />
     <Compile Include="ViewModels\ApplicantsViewModel.cs" />
     <Compile Include="ViewModels\OrganizersViewModel.cs" />
@@ -245,9 +246,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
