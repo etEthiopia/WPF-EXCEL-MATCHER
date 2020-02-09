@@ -1,11 +1,7 @@
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\ETGDGRegistration.exe.config
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\ETGDGRegistration.exe
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\ETGDGRegistration.pdb
-C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\MaterialDesignColors.dll
-C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\MaterialSkin.dll
-C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\obj\Debug\ETGDGRegistration.csprojAssemblyReference.cache
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\obj\Debug\MainWindow.g.cs
 C:\Users\Dagi\source\repos\ETGDGRegistration\ETGDGRegistration\obj\Debug\App.g.cs
