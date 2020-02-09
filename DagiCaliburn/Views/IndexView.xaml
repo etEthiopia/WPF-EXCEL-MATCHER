@@ -9,266 +9,35 @@
              mc:Ignorable="d" 
                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              MaxHeight="900" >
-    
-    <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid>
+
+    <Grid Margin="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,10" Grid.Row="0" HorizontalAlignment="Stretch" >
 
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <materialDesign:Card VerticalAlignment="Stretch" AllowDrop="True" PreviewDrop="TextBlock_PreviewDrop" PreviewDragEnter="TextBlock_PreviewDragEnter" PreviewDragOver="TextBlock_PreviewDragOver"    HorizontalAlignment="Stretch"
-                  materialDesign:ShadowAssist.ShadowDepth="Depth5" 
-                  Background="{DynamicResource PrimaryHueDarkBrush}"
-                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                  Padding="10"
-                  Margin="30,10,30,5"                           
-                  UniformCornerRadius="10">
+            <StackPanel HorizontalAlignment="Stretch"
+    Orientation="Horizontal"
+    Margin="0">
+                <RadioButton
+      Style="{StaticResource MaterialDesignTabRadioButton}"
+      Margin="4"
+      IsChecked="True"
+      Content="_ANALYZE" />
+                <RadioButton
+      Style="{StaticResource MaterialDesignTabRadioButton}"
+      Margin="4"
+      IsChecked="False"
+      Content="_APPLICANTS" />
+                <RadioButton
+      Style="{StaticResource MaterialDesignTabRadioButton}"
+      Margin="4"
+      IsChecked="False"
+      Content="_ORGANIZERS" />
+            </StackPanel>
 
 
-                <Grid>
-                    
-                    <TextBlock Name="DragText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center"
-    Style="{StaticResource MaterialDesignDisplay1TextBlock}" FontWeight="Light">
- Drop a text file here
-                    </TextBlock>
-                </Grid>
-            </materialDesign:Card>
-            <Grid Name="HashGrid" Visibility="Hidden" HorizontalAlignment="Stretch" Margin="30,10" Grid.Row="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5,0,0,0" Text="Hash Value : "
-    Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-
-                    </TextBlock>
-                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5" Name="HashText"
-    Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-  
-                </TextBlock>
-                </StackPanel>
-                <Grid Margin="10,0,0,0"  Grid.Column="1" HorizontalAlignment="Right"
-  Width="100">
-                    <Button Click="HashBtn_Click" Name="HashBtn"
-    Style="{StaticResource MaterialDesignRaisedButton}"
-    materialDesign:ButtonProgressAssist.Value="-1"
-    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-    Content="Hash"
-    Margin="2,0" />
-                </Grid>
-            </Grid>
-            
         </Grid>
-
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Name="SGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    
-                </Grid.RowDefinitions>
-                <Grid Visibility="Visible" Name="CompareGrid" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <materialDesign:Card Grid.Column="0"
-  Background="{DynamicResource PrimaryHueLightBrush}"
-  Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-  Padding="8" Margin="20,5,5,5">
-                    <TextBlock
-    FontSize="15" TextWrapping="Wrap" Name="NewHash">
-  
-                    </TextBlock>
-                    
-                </materialDesign:Card>
-                <materialDesign:Card Grid.Column="1"
-  Background="{DynamicResource PrimaryHueLightBrush}"
-  Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-  Padding="8" Margin="5,5,20,5">
-                    <TextBlock
-    FontSize="15" TextWrapping="Wrap" Name="OldHash" Text="{Binding OldHashh}">
-
-                    </TextBlock>
-
-                </materialDesign:Card>
-            </Grid>
-            <Button Grid.Row="1" Click="CompareBtn_Click" Name="CompareBtn" HorizontalAlignment="Right"
-    Style="{StaticResource MaterialDesignRaisedButton}"
-    Content="Compare"
-    Margin="20,0" />
-            </Grid>
-
-            <materialDesign:Card Visibility="Collapsed" Name="Congra" Grid.Row="2"
-  Background="Green"
-  Foreground="white"
-  HorizontalAlignment="Stretch"
-  Padding="8"
-                                     Height="50"
-                                     Margin="25"
-  UniformCornerRadius="6">
-                <Grid>
-
-                    <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
-    TextWrapping="Wrap">
-            The File never Changed
-                    </TextBlock>
-                    <Button Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" Name="GreenClose" Click="GreenClose_Click" Height="20" Width="20" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top"
-                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                        <materialDesign:PackIcon
-                            Foreground="White"
-                            Kind="Close"
-                            Height="14"
-                            Width="14" />
-                    </Button>
-                </Grid>
-                    
-                </materialDesign:Card>
-
-            <materialDesign:Card Visibility="Collapsed"  Name="Bummer" Grid.Row="2"
-  Background="Red"
-  Foreground="white"
-  HorizontalAlignment="Stretch"
-  Padding="8"
-                                     Height="50"
-                                     Margin="25"
-  UniformCornerRadius="6">
-                <Grid>
-
-                    <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
-    TextWrapping="Wrap">
-            The File has Changed
-                    </TextBlock>
-                    <Button Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" Name="RedClose" Click="RedClose_Click"  Height="20" Width="20" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top"
-                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                        <materialDesign:PackIcon
-                            Foreground="White"
-                            Kind="Close"
-                            Height="14"
-                            Width="14" />
-                    </Button>
-                </Grid>
-            </materialDesign:Card>
-
-
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <materialDesign:Card VerticalAlignment="Stretch" AllowDrop="True" PreviewDrop="TextBlock_NPreviewDrop" PreviewDragEnter="TextBlock_NPreviewDragEnter" PreviewDragOver="TextBlock_NPreviewDragOver"    HorizontalAlignment="Stretch"
-                  materialDesign:ShadowAssist.ShadowDepth="Depth5" 
-                  Background="{DynamicResource PrimaryHueDarkBrush}"
-                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                  Padding="10"
-                  Margin="20,10,10,5"                           
-                  UniformCornerRadius="10">
-
-
-                        <Grid>
-
-                            <TextBlock Name="DragNText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"
-    Style="{StaticResource MaterialDesignDisplay1TextBlock}" FontWeight="Light">
- Drop the comparsion file
-                            </TextBlock>
-                        </Grid>
-                    </materialDesign:Card>
-                    <Grid Name="HashNGrid" Visibility="Visible" HorizontalAlignment="Stretch" Margin="30,10" Grid.Row="1" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Vertical">
-                            
-                            
-                        </StackPanel>
-                        
-                            <Button Grid.Column="1"  Click="HashBtn_NClick" Margin="10,0,0,0" HorizontalAlignment="Right" Name="HashNBtn"
-    Style="{StaticResource MaterialDesignRaisedButton}"
-    Content="Hash"
-    VerticalAlignment="Top" />
-                        </Grid>
-                    
-
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Button  Grid.Row="0" Margin="0,5,15,0"  x:Name="Refresh" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top"
-                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                        <materialDesign:PackIcon
-                            Kind="Refresh"
-                            Height="14"
-                            Width="14" />
-                    </Button>
-                    <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch">
-                        <ItemsControl x:Name="Typpes" >
-
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="1"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <materialDesign:Card cal:Message.Attach="[Event MouseDoubleClick] = [Action DriveSelected(Hashh)]" Cursor="Hand"  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                  materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="{DynamicResource PrimaryHueDarkBrush}"
-                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                  
-                  
-                  Padding="10"
-                  Margin="10"                           
-                  UniformCornerRadius="6">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-
-                                            <TextBlock  Grid.Row="0"   x:Name="Tit" Text="{Binding Title}" FontWeight="Light" 
-    Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-
-                                            </TextBlock>
-                                            <TextBlock x:Name="Hashh" Text="{Binding Hash}" Visibility="Collapsed"/>
-                                            
-                                        </Grid>
-                                    </materialDesign:Card>
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </Grid>
-                
-            </Grid>
-        </Grid>
-        </Grid>
-        </ScrollViewer>
     </Grid>
 </Window>

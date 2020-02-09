@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DagiCaliburn.exe" size="29656">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DagiCaliburn.exe" size="18392">
       <assemblyIdentity name="DagiCaliburn" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>JeP3oV+Kn7fK/AF3ioxy6yJVnPZliTvV2tBENhn1NyU=</dsig:DigestValue>
+        <dsig:DigestValue>Kb4j3e5AH56frgcmE3XKdf6rMpLLvh8Oc4uWXmWyLpg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -146,6 +146,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>NDDfhBTCuOef8X7V7YDdmZSn4y4Llz9295SruIf4D6I=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IronXL.dll" size="5769728">
+      <assemblyIdentity name="IronXL" version="2019.5.2.0" publicKeyToken="0F5804B6690BAD1E" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5lYWc9GQr7znSZBhIH4lgK9MYzLtV38y6RT6HpVoF+I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

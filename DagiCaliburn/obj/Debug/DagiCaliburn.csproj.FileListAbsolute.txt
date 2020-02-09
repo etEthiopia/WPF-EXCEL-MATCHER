@@ -280,3 +280,7 @@ C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\DagiCaliburn
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\DagiCaliburn.csproj.CopyComplete
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\DagiCaliburn.exe
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\DagiCaliburn.pdb
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\IronXL.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\IronXL.xml
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\AnalyzeView.g.cs
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\AnalyzeView.baml

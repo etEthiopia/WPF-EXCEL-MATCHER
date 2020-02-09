@@ -1,0 +1,39 @@
+﻿<Page x:Class="DagiCaliburn.Views.AnalyzeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DagiCaliburn.Views"
+      xmlns:cal="http://www.caliburnproject.org"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="780"
+      Title="AnalyzeView">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Margin="100, 50" VerticalAlignment="Stretch" AllowDrop="True" PreviewDrop="TextBlock_PreviewDrop" PreviewDragEnter="TextBlock_PreviewDragEnter" PreviewDragOver="TextBlock_PreviewDragOver"    HorizontalAlignment="Stretch"
+                  materialDesign:ShadowAssist.ShadowDepth="Depth5" 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                  Padding="10"
+                  UniformCornerRadius="10">
+
+
+            <Grid>
+
+                <TextBlock Name="DragText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center"
+    Style="{StaticResource MaterialDesignDisplay1TextBlock}" FontWeight="Light">
+ Drop a text file here
+                </TextBlock>
+                
+            </Grid>
+        </materialDesign:Card>
+
+    </Grid>
+</Page>

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Dagi\source\repos\DCaliburn - Copy\DagiCaliburn\obj\Debug\
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\
 DagiCaliburn
 none
 false
 DEBUG;TRACE
-C:\Users\Dagi\source\repos\DCaliburn - Copy\DagiCaliburn\App.xaml
-11279500347
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\App.xaml
+21143260779
 
-1219242108
-961856657382
-Views\IndexView.xaml;
+14-167828210
+971814485405
+Views\AnalyzeView.xaml;Views\IndexView.xaml;
 
-True
+False
 
