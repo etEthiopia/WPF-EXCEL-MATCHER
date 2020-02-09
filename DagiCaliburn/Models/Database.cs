@@ -28,7 +28,7 @@ namespace DagiCaliburn.Models
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";" + "PORT=3306;";
             connection = new MySqlConnection(connectionString);
-            OpenConnection();
+            
 
         }
         public static Database instance = new Database();

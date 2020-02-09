@@ -20,6 +20,8 @@ namespace DagiCaliburn.Models
         private string _educationalbg = "";
         private string _shortthoughts = "";
         private string _teamleader = "";
+        private string _type = "Individual";
+        private char _gender;
         private List<StudentModel> _team = new List<StudentModel>();
 
         public string Name { get { return _name; } set { _name = value; } }
@@ -32,13 +34,15 @@ namespace DagiCaliburn.Models
         public string EducationalBG { get { return _educationalbg; } set { _educationalbg = value; } }
         public string ShortThoughts { get { return _shortthoughts; } set { _shortthoughts = value; } }
         public string TeamLeader { get { return _teamleader; } set { _teamleader = value; } }
+        public string Type { get { return _type; } set { _type = value; } }
+        public char Gender { get { return _gender; } set { _gender = value; } }
 
         public List<StudentModel> Team { get { return _team; } set { _team = value; } }
 
 
         public StudentModel() { }
 
-        public StudentModel(string name, string phone, string email, string timestamp, string women, string edbg, string thoughts)
+        public StudentModel(string name, string phone, string email, string timestamp, string women, string edbg, string thoughts, string gender, string type = "Individual")
         {
             if(Regex.IsMatch(name.Trim(), @"^[a-zA-z ]+$"))
             {
@@ -53,7 +57,7 @@ namespace DagiCaliburn.Models
                 Console.WriteLine($"Name.Length = 0 : {Params} : {Errors}");
             }
 
-            if (phone.Trim().Contains("09") && phone.Trim().Length == 10 && !phone.Contains('@'))
+            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && !phone.Contains('@'))
             {
                 var isPhone = 0;
                 if (int.TryParse(phone, out isPhone))
@@ -100,7 +104,7 @@ namespace DagiCaliburn.Models
             if(Regex.IsMatch(women.Trim(), @"^[0-9]+$"))
             {
                 var isPhone = 0;
-                if (int.TryParse(phone, out isPhone))
+                if (int.TryParse(women.Trim(), out isPhone))
                 {
                     if (isPhone > 0)
                     {
@@ -120,6 +124,10 @@ namespace DagiCaliburn.Models
             EducationalBG = edbg;
             ShortThoughts = thoughts;
             Timestamp = timestamp;
+            char g = '-';
+            char.TryParse(gender.ToUpper(), out g);
+            Gender = g;
+            Type = type;
             if (StudentModel.CheckForDuplicate(Email)){
                 Params = false;
                 string errors = "THIS APPLICANT HAS COMPETED BEFORE. " + Errors;
@@ -129,7 +137,7 @@ namespace DagiCaliburn.Models
             
         }
 
-        public static List<StudentModel> GetStudents(string k, out bool ap)
+        public static List<StudentModel> GetStudents(string k, string teamleadername, out bool ap)
         {
             ap = true;
             List<StudentModel> students = new List<StudentModel>();
@@ -142,6 +150,8 @@ namespace DagiCaliburn.Models
                     Console.WriteLine($"Examining: {stustr}");
                     string[] studInfo = stustr.Split(',');
                     StudentModel stu = new StudentModel();
+                    stu.TeamLeader = teamleadername;
+                    stu.Type = "TM";
                     if (studInfo.Length == 0)
                     {
                         stu.Params = false;
@@ -168,7 +178,7 @@ namespace DagiCaliburn.Models
                     foreach (string attr in studInfo)
                     {
 
-                        if (attr.Trim().Contains("09") && attr.Trim().Length == 10 && !attr.Contains('@'))
+                        if (attr.Trim().Contains("9") && attr.Trim().Length <= 10 && !attr.Contains('@'))
                         {
                             var isPhone = 0;
                             if (int.TryParse(attr, out isPhone))
@@ -253,7 +263,7 @@ namespace DagiCaliburn.Models
                 {
                     MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
 
-                    Database.instance.connection.Open();
+                    Database.instance.OpenConnection();
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -267,12 +277,13 @@ namespace DagiCaliburn.Models
 
 
                     }
-                Database.instance.connection.Close();
+                Database.instance.CloseConnection();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine($"Duplicate Exception, {e.Message}");
-                }
+                Database.instance.CloseConnection();
+            }
 
                 return dup;
             
