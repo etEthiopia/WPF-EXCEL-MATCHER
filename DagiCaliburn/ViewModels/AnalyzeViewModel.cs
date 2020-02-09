@@ -67,11 +67,9 @@ namespace DagiCaliburn.ViewModels
                     else
                     {
                         Console.WriteLine("New Row >>  ");
-                        foreach (IronXL.Cell k in row.ToList())
-                        {
-                            Console.Write($"{k.Value.ToString()} : ");
-                        }
-                        Console.Write("\n");
+                        List<IronXL.Cell> rowDatas = row.ToList();
+                        StudentModel st = new StudentModel(rowDatas[2].Value.ToString(), rowDatas[3].Value.ToString(), rowDatas[1].Value.ToString(), rowDatas[0].Value.ToString(), rowDatas[7].Value.ToString(), rowDatas[8].Value.ToString(), rowDatas[10].Value.ToString());
+                        Console.WriteLine("$$$ " + st.Name + " : " + st.Phone + " : " + st.Email + " : " + st.Params + " : " + st.Errors+" : "+st.Timestamp+" : "+st.ShortThoughts+" : "+st.Women +" : "+st.EducationalBG);
                     }
                 }
             }
