@@ -39,7 +39,7 @@ namespace DagiCaliburn.ViewModels
                 Console.WriteLine($"A2: {cellValue}");
 
             }
-            string k = "Dagmawi Negussu, 0937886725, daginegussu@gmail.com" +
+            string k = "Dagmawi Negussu, 0937886725. daginegussu@gmail.com" +
                 ": Bereket Yohannes, 0912345678, bekijohn@gmail.com";
             bool ap;
             List<StudentModel> stus = StudentModel.GetStudents(k,out ap);
@@ -47,7 +47,7 @@ namespace DagiCaliburn.ViewModels
             {
                 foreach(StudentModel st in stus)
                 {
-                    Console.WriteLine(st.Name + " : " + st.Phone + " : " + st.Email + " : " + st.Params + " : " + st.Errors);
+                    Console.WriteLine("$$$ "+ st.Name + " : " + st.Phone + " : " + st.Email + " : " + st.Params + " : " + st.Errors);
                 }
             }
         }

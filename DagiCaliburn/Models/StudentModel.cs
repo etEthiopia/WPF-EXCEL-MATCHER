@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DagiCaliburn.Models
@@ -46,19 +47,18 @@ namespace DagiCaliburn.Models
                     else if (studInfo.Length < 3)
                     {
                         stu.Params = false;
-                        stu.Errors = $"Only {studInfo.Length} attributes Entered";
+                        stu.Errors = $"Only {studInfo.Length} attributes Entered.";
                         Console.WriteLine($"Length < 3 : {stu.Params} : {stu.Errors}");
                     }
                     else if (studInfo.Length > 3)
                     {
                         stu.Params = false;
-                        stu.Errors = $"Attribute Errors";
+                        stu.Errors = $"Attribute Errors.";
                         Console.WriteLine($"Length > 3 : {stu.Params} : {stu.Errors}");
                         StudentModel ck = stu;
                         students.Add(ck);
-                        break;
+                        continue;
                     }
-                    int kk = 0;
                     foreach (string attr in studInfo)
                     {
 
@@ -81,12 +81,12 @@ namespace DagiCaliburn.Models
                                 Console.WriteLine($"Phone Error : {stu.Params} : {stu.Errors}");
                             }
                         }
-                        else if (attr.Contains('@') && attr.Contains('.'))
+                        else if (attr.Contains('@') && attr.Contains('.') && !attr.Trim().Contains(" "))
                         {
                             stu.Email = attr.Trim();
                             Console.WriteLine($"Email Added: {attr.Trim()}");
                         }
-                        else if (attr.Length > 3 && !int.TryParse(attr, out kk))
+                        else if (attr.Length > 3 && Regex.IsMatch(attr.Trim(), @"^[a-zA-z ]+$"))
                         {
                             stu.Name = attr.Trim();
                             Console.WriteLine($"Name Added: {attr.Trim()}");
@@ -110,9 +110,8 @@ namespace DagiCaliburn.Models
                         string errors = "Email Parsing Error. " + stu.Errors;
                         stu.Errors = errors;
                         Console.WriteLine($"Email.Length = 0 : {stu.Params} : {stu.Errors}");
-                        StudentModel ck = stu;
-                        students.Add(ck);
-                        break;
+                        
+                        
                     }
                     Console.WriteLine($"All is Good, about to be Added");
                     StudentModel c = stu;
