@@ -1,4 +1,4 @@
-﻿<Page x:Class="DagiCaliburn.Views.AnalyzeView"
+﻿<UserControl x:Class="DagiCaliburn.Views.AnalyzeView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,14 +10,19 @@
       
       mc:Ignorable="d" 
       d:DesignHeight="390" d:DesignWidth="780"
-      Title="AnalyzeView">
+      >
 
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <materialDesign:Card Margin="100, 50" VerticalAlignment="Stretch" AllowDrop="True" PreviewDrop="TextBlock_PreviewDrop" PreviewDragEnter="TextBlock_PreviewDragEnter" PreviewDragOver="TextBlock_PreviewDragOver"    HorizontalAlignment="Stretch"
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Margin="100, 50" VerticalAlignment="Stretch" AllowDrop="True" PreviewDrop="TextBlock_PreviewDrop" PreviewDragEnter="TextBlock_PreviewDragEnter" PreviewDragOver="TextBlock_PreviewDragOver"    HorizontalAlignment="Stretch"
                   materialDesign:ShadowAssist.ShadowDepth="Depth5" 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
@@ -29,11 +34,25 @@
 
                 <TextBlock Name="DragText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center"
     Style="{StaticResource MaterialDesignDisplay1TextBlock}" FontWeight="Light">
- Drop a text file here
+ Drop Excel File here
                 </TextBlock>
                 
             </Grid>
         </materialDesign:Card>
-
+            <Grid Name="ShowDuplicatesIsVisible" Grid.Row="1" HorizontalAlignment="Right" Margin="100, 0"
+  Width="Auto">
+                <Button x:Name="ShowDuplicatesBtn"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    materialDesign:ButtonProgressAssist.Value="-1"
+    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+    Content="Show Duplicates"
+    Margin="2,0" />
+            </Grid>
+        </Grid>
+        <TextBlock Grid.Row="1" Margin="20" HorizontalAlignment="Center"
+    Style="{StaticResource MaterialDesignHeadlineTextBlock}">
+  Regular 24sp
+        </TextBlock>
     </Grid>
-</Page>
+</UserControl>

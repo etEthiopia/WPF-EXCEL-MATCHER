@@ -284,3 +284,7 @@ C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\IronXL.dll
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\IronXL.xml
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\AnalyzeView.g.cs
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\AnalyzeView.baml
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\ApplicantsView.g.cs
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\OrganizersView.g.cs
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\ApplicantsView.baml
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\Views\OrganizersView.baml

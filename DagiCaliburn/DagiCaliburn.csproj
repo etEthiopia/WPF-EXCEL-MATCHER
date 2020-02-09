@@ -162,12 +162,20 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ViewModels\AnalyzeViewModel.cs" />
+    <Compile Include="ViewModels\ApplicantsViewModel.cs" />
+    <Compile Include="ViewModels\OrganizersViewModel.cs" />
     <Compile Include="Views\AnalyzeView.xaml.cs">
       <DependentUpon>AnalyzeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\IndexViewModel.cs" />
+    <Compile Include="Views\ApplicantsView.xaml.cs">
+      <DependentUpon>ApplicantsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IndexView.xaml.cs">
       <DependentUpon>IndexView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizersView.xaml.cs">
+      <DependentUpon>OrganizersView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +212,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ApplicantsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\IndexView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

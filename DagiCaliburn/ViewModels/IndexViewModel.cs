@@ -10,7 +10,35 @@ using System.Windows;
 
 namespace DagiCaliburn.ViewModels
 {
-    class IndexViewModel : Screen
+    class IndexViewModel : Conductor<object>
     {
+        public static ApplicantsViewModel applicantsView;
+        public static OrganizersViewModel organizersView;
+        public static AnalyzeViewModel analyzeView;
+
+
+        public IndexViewModel()
+        {
+            applicantsView = new ApplicantsViewModel();
+            organizersView = new OrganizersViewModel();
+            analyzeView = new AnalyzeViewModel();
+            ActivateItem(analyzeView);
+        }
+
+        public void AnalyzeMenu()
+        {
+            ActivateItem(analyzeView);
+        }
+
+        public void OrganizersMenu()
+        {
+            ActivateItem(organizersView);
+        }
+
+        public void ApplicantsMenu()
+        {
+            ActivateItem(applicantsView);
+        }
     }
+
 }

@@ -23,21 +23,28 @@
                 <RadioButton
       Style="{StaticResource MaterialDesignTabRadioButton}"
       Margin="4"
+      x:Name="AnalyzeMenu"              
       IsChecked="True"
       Content="_ANALYZE" />
                 <RadioButton
       Style="{StaticResource MaterialDesignTabRadioButton}"
       Margin="4"
+      x:Name="ApplicantsMenu"                 
       IsChecked="False"
       Content="_APPLICANTS" />
                 <RadioButton
       Style="{StaticResource MaterialDesignTabRadioButton}"
       Margin="4"
+      x:Name="OrganizersMenu"                 
       IsChecked="False"
       Content="_ORGANIZERS" />
             </StackPanel>
 
 
         </Grid>
+        <ContentControl
+            Grid.Row="1"
+            x:Name="ActiveItem"
+            />
     </Grid>
 </Window>

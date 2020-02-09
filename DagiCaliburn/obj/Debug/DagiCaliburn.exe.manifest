@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DagiCaliburn.exe" size="18392">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DagiCaliburn.exe" size="24536">
       <assemblyIdentity name="DagiCaliburn" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Kb4j3e5AH56frgcmE3XKdf6rMpLLvh8Oc4uWXmWyLpg=</dsig:DigestValue>
+        <dsig:DigestValue>o5KVi7TThKMBHVJRXluZRhqJdxOa2f4JIkLl72i0d7A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
