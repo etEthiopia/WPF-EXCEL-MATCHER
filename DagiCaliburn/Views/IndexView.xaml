@@ -31,7 +31,7 @@
       Margin="4"
       x:Name="ApplicantsMenu"                 
       IsChecked="False"
-      Content="_APPLICANTS" />
+      Content="_COMPETETORS" />
                 <RadioButton
       Style="{StaticResource MaterialDesignTabRadioButton}"
       Margin="4"
