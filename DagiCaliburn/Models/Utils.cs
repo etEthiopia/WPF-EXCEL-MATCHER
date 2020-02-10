@@ -108,7 +108,10 @@ namespace DagiCaliburn.Models
                     {
                         student.Type = "Team";
                     }
+
+                    
                 }
+                
                 return sugesstions;
             }
             catch(Exception e)

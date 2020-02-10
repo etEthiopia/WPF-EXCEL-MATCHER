@@ -120,6 +120,7 @@ namespace DagiCaliburn.ViewModels
                 CreateExcel();
                 bool sugsuc;
                 SuggestedStus = new BindableCollection<StudentModel>(Utils.Suggestions(mouldedStudents, out sugsuc));
+                
                 if (sugsuc)
                 {
                     IsVisibileSuggestion = true;

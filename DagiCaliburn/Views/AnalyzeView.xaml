@@ -96,7 +96,7 @@
             </Grid.RowDefinitions>
             <DataGrid Grid.Row="1" Grid.Column="1" 
                   Margin="0 8 0 8"
-                  CanUserReorderColumns="False"    
+                  CanUserReorderColumns="False"   
                   ItemsSource="{Binding SuggestedStus, Mode=OneWay}"
                   Width="Auto"
                   CanUserResizeColumns="True"
