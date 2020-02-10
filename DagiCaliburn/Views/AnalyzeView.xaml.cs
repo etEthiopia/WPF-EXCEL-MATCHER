@@ -22,9 +22,11 @@ namespace DagiCaliburn.Views
     public partial class AnalyzeView : UserControl
     {
         public static string FFile = "";
+        public static string bgcolor = "green";
         public AnalyzeView()
         {
             InitializeComponent();
+            
         }
 
         private void TextBlock_PreviewDrop(object sender, DragEventArgs e)

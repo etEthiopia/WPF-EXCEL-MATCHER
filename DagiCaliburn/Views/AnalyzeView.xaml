@@ -13,11 +13,37 @@
       >
 
     <Grid Background="White">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Button Visibility="Hidden" Grid.Column="0" Margin="0,5,5,0" Grid.Row="0" x:Name="CloseGSelected" Height="35" Width="35" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
+            <materialDesign:PackIcon
+                            Foreground="White"
+                            Kind="Close"
+                            Height="24"
+                            Width="24" />
+        </Button>
+
+        <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" x:Name="ClearBtn" Height="35" Width="35" HorizontalAlignment="Right" VerticalAlignment="Top"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
+            <materialDesign:PackIcon
+                            Foreground="White"
+                            Kind="SettingsBackupRestore"
+                            Height="24"
+                            Width="24" />
+        </Button>
+
+        <Grid x:Name="IsVisibileDropExcel" Margin="0 20" Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -39,20 +65,89 @@
                 
             </Grid>
         </materialDesign:Card>
-            <Grid Name="ShowDuplicatesIsVisible" Grid.Row="1" HorizontalAlignment="Right" Margin="100, 0"
+            <Grid Name="ShowDuplicatesIsVisible" Grid.Row="1" Margin="100, 0"
   Width="Auto">
-                <Button x:Name="ShowDuplicatesBtn"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 0 30 0" Grid.Column="0" Orientation="Vertical">
+                    <TextBox x:Name="DestinationText"
+  materialDesign:HintAssist.Hint="Destination Directory"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox x:Name="FileText"
+  materialDesign:HintAssist.Hint="Analyzed Doc File Name"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </StackPanel>
+                <Button HorizontalAlignment="Right"  x:Name="ShowDuplicatesBtn" Grid.Column="1"
     Style="{StaticResource MaterialDesignRaisedButton}"
     materialDesign:ButtonProgressAssist.Value="-1"
     materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
     materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-    Content="Show Duplicates"
+    Content="Analyze"
     Margin="2,0" />
             </Grid>
         </Grid>
-        <TextBlock Grid.Row="1" Margin="20" HorizontalAlignment="Center"
-    Style="{StaticResource MaterialDesignHeadlineTextBlock}">
-  Regular 24sp
-        </TextBlock>
+        <Grid x:Name="IsVisibileSuggestion" Margin="0 10" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="1" Grid.Column="1" 
+                  Margin="0 8 0 8"
+                  CanUserReorderColumns="False"    
+                  ItemsSource="{Binding SuggestedStus, Mode=OneWay}"
+                  Width="Auto"
+                  CanUserResizeColumns="True"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserDeleteRows="False"
+                  
+                  
+                  CanUserAddRows="False" >
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name"  Binding="{Binding Path= Name }">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Path= Type }">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Women" Binding="{Binding Path= Women}" >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn SortDirection="Descending" CanUserSort="False" Visibility="Visible" Header="Score" Binding="{Binding Path= Score}" >
+                    </DataGridTextColumn>
+
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="IsVisibileAnalyzedRGrid"  Grid.Column="1">
+            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" 
+  Background="Green"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="10"
+  UniformCornerRadius="6">
+                <TextBlock x:Name="AnalyzedRText"
+    TextWrapping="Wrap">
+
+                </TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="IsVisibileAnalyzedWGrid"  Grid.Column="1">
+            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" 
+  Background="Red"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="10"
+  UniformCornerRadius="6">
+                <TextBlock x:Name="AnalyzedWText"
+    TextWrapping="Wrap">
+
+                </TextBlock>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </UserControl>

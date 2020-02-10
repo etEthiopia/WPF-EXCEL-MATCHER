@@ -22,6 +22,7 @@ namespace DagiCaliburn.Models
         private string _teamleader = "";
         private string _type = "Individual";
         private char _gender;
+        private int _score = 0;
         private List<StudentModel> _team = new List<StudentModel>();
 
         public string Name { get { return _name; } set { _name = value; } }
@@ -36,9 +37,9 @@ namespace DagiCaliburn.Models
         public string TeamLeader { get { return _teamleader; } set { _teamleader = value; } }
         public string Type { get { return _type; } set { _type = value; } }
         public char Gender { get { return _gender; } set { _gender = value; } }
+        public int Score { get { return _score; } set { _score = value; } }
 
         public List<StudentModel> Team { get { return _team; } set { _team = value; } }
-
 
         public StudentModel() { }
 
@@ -103,13 +104,16 @@ namespace DagiCaliburn.Models
 
             if(Regex.IsMatch(women.Trim(), @"^[0-9]+$"))
             {
-                var isPhone = 0;
+                int isPhone;
                 if (int.TryParse(women.Trim(), out isPhone))
                 {
                     if (isPhone > 0)
                     {
-                        Women = isPhone;
-                        Console.WriteLine($"Women Added: {isPhone}");
+                        if (type.Equals("Team Leader")) {
+                            Women = isPhone;
+                            Console.WriteLine($"Women Added: {isPhone}");
+                        }
+                        
                     }
                 }
             }
@@ -127,7 +131,12 @@ namespace DagiCaliburn.Models
             char g = '-';
             char.TryParse(gender.ToUpper(), out g);
             Gender = g;
+            
             Type = type;
+            if(Type.Equals("Individual") && Gender.Equals('F'))
+            {
+                Women = 1;
+            }
             if (StudentModel.CheckForDuplicate(Email)){
                 Params = false;
                 string errors = "THIS APPLICANT HAS COMPETED BEFORE. " + Errors;

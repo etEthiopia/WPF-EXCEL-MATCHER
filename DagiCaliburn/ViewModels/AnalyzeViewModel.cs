@@ -7,21 +7,97 @@ using System.Threading.Tasks;
 using IronXL;
 using DagiCaliburn.Models;
 using System.Windows;
+using System.Text.RegularExpressions;
+using DagiCaliburn.Views;
 
 namespace DagiCaliburn.ViewModels
 {
     class AnalyzeViewModel : Screen
     {
         private bool _showDuplicatesIsVisible = true;
+        private bool _isVisibileAnalyzedWGrid = false;
+        private bool _isVisibileAnalyzedRGrid = false;
+        private string _isVisibileAnalyzedRText = "";
+        private string _isVisibileAnalyzedWText = "";
+        private string _destinationText = "";
+        private string _fileText = "";
+        private bool _isVisibileDropExcel = true;
+        private bool _isVisibileSuggestion = false;
         private List<StudentModel> mouldedStudents = new List<StudentModel>();
+        private static BindableCollection<StudentModel> _suggestedStus = new BindableCollection<StudentModel>();
         private string _ffile = "";
-        
 
-        public string FFile {
+
+
+        public bool IsVisibileAnalyzedWGrid { get { return _isVisibileAnalyzedWGrid; }
+            set { _isVisibileAnalyzedWGrid = value;
+                NotifyOfPropertyChange(() => IsVisibileAnalyzedWGrid);
+            } }
+
+        public bool IsVisibileAnalyzedRGrid
+        {
+            get { return _isVisibileAnalyzedRGrid; }
+            set
+            {
+                _isVisibileAnalyzedRGrid = value;
+                NotifyOfPropertyChange(() => IsVisibileAnalyzedRGrid);
+            }
+        }
+
+        public string AnalyzedRText
+        {
+            get { return _isVisibileAnalyzedRText; }
+            set { _isVisibileAnalyzedRText = value; NotifyOfPropertyChange(() => AnalyzedRText); }
+        }
+
+        public string DestinationText
+        {
+            get { return _destinationText; }
+            set { _destinationText = value; NotifyOfPropertyChange(() => DestinationText); }
+        }
+
+        public BindableCollection<StudentModel> SuggestedStus { get { return _suggestedStus; }
+            set { _suggestedStus = value; NotifyOfPropertyChange(() => SuggestedStus); } }
+
+        public string FileText
+        {
+            get { return _fileText; }
+            set { _fileText = value; NotifyOfPropertyChange(() => FileText); }
+        }
+
+        public string AnalyzedWText
+        {
+            get { return _isVisibileAnalyzedWText; }
+            set { _isVisibileAnalyzedWText = value; NotifyOfPropertyChange(() => AnalyzedWText); }
+        }
+
+        public string FFile
+        {
             get { return _ffile; }
             set { _ffile = value; NotifyOfPropertyChange(() => FFile); }
         }
 
+        
+
+        public bool IsVisibileDropExcel
+        {
+            get { return _isVisibileDropExcel; }
+            set
+            {
+                _isVisibileDropExcel = value;
+                NotifyOfPropertyChange(() => IsVisibileDropExcel);
+            }
+        }
+
+        public bool IsVisibileSuggestion
+        {
+            get { return _isVisibileSuggestion; }
+            set
+            {
+                _isVisibileSuggestion = value;
+                NotifyOfPropertyChange(() => IsVisibileSuggestion);
+            }
+        }
 
         public bool ShowDuplicatesIsVisible
         {
@@ -42,6 +118,14 @@ namespace DagiCaliburn.ViewModels
                 //Console.WriteLine($"A2: {cellValue}");
                 ReadExcel();
                 CreateExcel();
+                bool sugsuc;
+                SuggestedStus = new BindableCollection<StudentModel>(Utils.Suggestions(mouldedStudents, out sugsuc));
+                if (sugsuc)
+                {
+                    IsVisibileSuggestion = true;
+                    IsVisibileDropExcel = false;
+                }
+
             }
             //string k = "Dagmawi Negussu, 0937886725. daginegussu@gmail.com" +
             //    ": Bereket Yohannes, 0912345678, bekijohn@gmail.com";
@@ -54,6 +138,22 @@ namespace DagiCaliburn.ViewModels
             //        Console.WriteLine("$$$ "+ st.Name + " : " + st.Phone + " : " + st.Email + " : " + st.Params + " : " + st.Errors);
             //    }
             //}
+        }
+
+        public void ClearBtn()
+        {
+            IsVisibileAnalyzedRGrid = false;
+            IsVisibileAnalyzedWGrid = false;
+            AnalyzedWText = "";
+            AnalyzedRText = "";
+            IsVisibileDropExcel = true;
+            IsVisibileSuggestion = false;
+            FFile = "";
+            AnalyzeView.FFile = "";
+            DestinationText = "";
+            FileText = "";
+            SuggestedStus.Clear();
+            mouldedStudents.Clear();
         }
 
         private void ReadExcel()
@@ -72,11 +172,16 @@ namespace DagiCaliburn.ViewModels
                     {
                         Console.WriteLine("New Row >>  ");
                         List<IronXL.Cell> rowDatas = row.ToList();
-                        StudentModel st = new StudentModel(rowDatas[2].Value.ToString(), rowDatas[3].Value.ToString(), rowDatas[1].Value.ToString(), rowDatas[0].Value.ToString(), rowDatas[7].Value.ToString(), rowDatas[8].Value.ToString(), rowDatas[10].Value.ToString(), rowDatas[4].Value.ToString());
+                        StudentModel st;  
                         if (rowDatas[5].Value.ToString().ToLower().Equals("yes"))
                         {
-                            st.Type = "Team Leader";
+                            st = new StudentModel(rowDatas[2].Value.ToString(), rowDatas[3].Value.ToString(), rowDatas[1].Value.ToString(), rowDatas[0].Value.ToString(), rowDatas[7].Value.ToString(),
+                                rowDatas[8].Value.ToString(), rowDatas[9].Value.ToString(), rowDatas[4].Value.ToString(),"Team Leader");
                             st.Team = StudentModel.GetStudents(rowDatas[6].Value.ToString().Trim(), st.Name, out bool ap);
+                        }
+                        else
+                        {
+                            st = new StudentModel(rowDatas[2].Value.ToString(), rowDatas[3].Value.ToString(), rowDatas[1].Value.ToString(), rowDatas[0].Value.ToString(), rowDatas[7].Value.ToString(), rowDatas[8].Value.ToString(), rowDatas[9].Value.ToString(), rowDatas[4].Value.ToString());
                         }
                         StudentModel tok = st;
                         mouldedStudents.Add(tok);
@@ -113,6 +218,7 @@ namespace DagiCaliburn.ViewModels
                 }
                 foreach (StudentModel student in mouldedStudents)
                 {
+                    Console.WriteLine("MOULDED STUDENT: " + student.Name+", " + student.Type+ " :: "+counter);
                     ws[$"A{counter}"].Value = student.Type;
                     ws[$"B{counter}"].Value = student.Timestamp;
                     ws[$"C{counter}"].Value = student.Email;
@@ -154,11 +260,10 @@ namespace DagiCaliburn.ViewModels
                     if (student.Type.Equals("Team Leader"))
                     {
                         Console.WriteLine($"{student.Name}, membs = {student.Team.Count}");
-                        for (int mem = 0; mem < student.Team.Count; mem++)
+                        foreach(StudentModel member in student.Team)
                         {
-                            counter++;
-                            StudentModel member = student.Team[mem];
-                            Console.WriteLine($"Mem: {mem}, {member.Name}");
+                            ++counter;
+                            Console.WriteLine("MOULDED STUDENT: " + student.Name + ", " + student.Type + " :: " + counter);
                             ws[$"A{counter}"].Value = member.Type + " (" + member.TeamLeader + ")";
                             ws[$"C{counter}"].Value = member.Email;
                             ws[$"D{counter}"].Value = member.Name;
@@ -192,19 +297,87 @@ namespace DagiCaliburn.ViewModels
                                     ws[$"C{counter}"].Style.SetBackgroundColor("#e1ff00");
                                 }
                             }
-                            member = null;
+                           
                         }
-                        counter++;
+                        //counter++;
                     }
+
+                    ++counter;
                 }
 
 
                 ws["A1:L1"].Style.SetBackgroundColor("#c4c4c4");
-                wb.SaveAs("Data.xlsx");
+                if(DestinationText.Equals("") || FileText.Equals(""))
+                {
+                    Console.WriteLine($"{DestinationText}{FileText}");
+                    wb.SaveAs("HackthonData.xlsx");
+                    ShowMessage($"Destination / File Name is Empty\n" +
+                        $"The Analyzed Data has been saved as 'HackthonData.xlsx' in this Program Folder.", 'r');
+                } 
+                else if(DestinationText.Length <= 1 || FileText.Length <= 1)
+                {
+                    Console.WriteLine($"{DestinationText}{FileText}");
+                    wb.SaveAs("HackthonData.xlsx");
+                    ShowMessage($"Destination / File Name is Empty\n" +
+                        $"The Analyzed Data has been saved as 'HackthonData.xlsx' in this Program Folder.", 'r');
+                }
+                else
+                {
+                    if(FileText.Length <= 1)
+                    {
+                        Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
+                        //Utils.BackToFront(DestinationText)
+                        wb.SaveAs("HackthonData.xlsx");
+                        ShowMessage($"File Name is Empty\n" +
+                        $"The Analyzed Data has been saved as 'Data.xlsx' in the Specified Destination.", 'r');
+                    }
+                    else
+                    {
+                        if (Regex.IsMatch(FileText.Trim(), @"^[a-zA-z0-9 ]+$")) {
+                            Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
+                            //Utils.BackToFront(DestinationText + 
+                            wb.SaveAs(FileText + ".xlsx");
+                            ShowMessage($"The Analyzed Data has been saved as '{FileText}.xlsx' in the Specified Destination.", 'r');
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
+                            //wb.SaveAs("Dsaf")
+                            //Utils.BackToFront(DestinationText + 
+                            wb.SaveAs("HackthonData.xlsx");
+                            ShowMessage($"File Name was entered in a Wrong Format\n" +
+                        $"The Analyzed Data has been saved as 'Data.xlsx' in the Specified Destination.", 'r');
+                        }
+                    }
+                    
+                }
+                
             }
             catch(Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                ShowMessage($"Error Happened. {e.Message}.", 'w');
+            }
+        }
+
+        private void ShowMessage(string message, char type)
+        {
+            IsVisibileAnalyzedRGrid = false;
+            IsVisibileAnalyzedWGrid = false;
+            AnalyzedWText = "";
+            AnalyzedRText = "";
+            switch (type){
+                case 'w':
+                    IsVisibileAnalyzedWGrid = true;
+                    AnalyzedWText = message;
+                    break;
+                case 'r':
+                    IsVisibileAnalyzedRGrid = true;
+                    AnalyzedRText = message;
+                    break;
+                default:
+                    IsVisibileAnalyzedWGrid = true;
+                    AnalyzedWText = message;
+                    break;
             }
         }
     }
