@@ -43,6 +43,77 @@ namespace DagiCaliburn.Models
 
         public StudentModel() { }
 
+        public StudentModel(string name, string phone, string email)
+        {
+            if (Regex.IsMatch(name.Trim(), @"^[a-zA-z ]+$"))
+            {
+                Console.WriteLine($"Name Added: {name.Trim()}");
+                Name = name.Trim();
+            }
+            else
+            {
+                Params = false;
+                string errors = "Name Parsing Error. " + Errors;
+                Errors = errors;
+                Console.WriteLine($"Name.Length = 0 : {Params} : {Errors}");
+            }
+
+            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && !phone.Contains('@'))
+            {
+                var isPhone = 0;
+                if (int.TryParse(phone, out isPhone))
+                {
+                    if (isPhone > 0)
+                    {
+                        Phone = isPhone;
+                        Console.WriteLine($"Phone Added: {isPhone}");
+                    }
+                }
+                else
+                {
+                    Params = false;
+                    string errors = "Invalid Phone Number. " + Errors;
+                    Errors = errors;
+                    Console.WriteLine($"Phone Error : {Params} : {Errors}");
+                }
+            }
+            else
+            {
+                Params = false;
+                string errors = "Invalid Phone Number. " + Errors;
+                Errors = errors;
+                Console.WriteLine($"Phone Error : {Params} : {Errors}");
+            }
+
+
+
+
+
+            if (email.Contains('@') && email.Contains('.') && !email.Trim().Contains(" "))
+            {
+                Email = email.Trim();
+                Console.WriteLine($"Email Added: {email.Trim()}");
+            }
+            else
+            {
+                Params = false;
+                string errors = "Email Parsing Error. " + Errors;
+                Errors = errors;
+                Console.WriteLine($"Email Error : {Params} : {Errors}");
+            }
+
+            
+            if (StudentModel.CheckForDuplicate(Email))
+            {
+                Params = false;
+                string errors = "THIS APPLICANT HAS COMPETED BEFORE. " + Errors;
+                Errors = errors;
+                Console.WriteLine($"Dup APPLICANT Error : {Params} : {Errors}");
+            }
+
+        }
+
+
         public StudentModel(string name, string phone, string email, string timestamp, string women, string edbg, string thoughts, string gender, string type = "Individual")
         {
             if(Regex.IsMatch(name.Trim(), @"^[a-zA-z ]+$"))
@@ -262,6 +333,57 @@ namespace DagiCaliburn.Models
             }
         }
 
+
+        public static string SaveApplicants(List<StudentModel> apps)
+        {
+            string issues = "";
+            foreach(StudentModel sk in apps)
+            {
+                string fname = sk.Name;
+                string silk = sk.Phone.ToString();
+                if(sk.Phone == 0)
+                {
+                    silk = "No Phone";
+                }
+                if (sk.Name.Equals(""))
+                {
+                    fname = "No Name";
+                }
+
+                if (!sk.Params)
+                {
+                    if(sk.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
+                    {
+                        issues += $"Error: {fname}, {silk} has Competed Before.\n"; 
+                        continue;
+                    }
+                    else if(sk.Errors.Contains("Email Parsing Error."))
+                    {
+                        issues += $"Error: {fname}, {silk} has no appropriate Email.\n";
+                        continue;
+                    }
+                }
+                string query = $"INSERT INTO competetors (email, phone, name) VALUES('{sk.Email}', {sk.Phone}, '{sk.Name}')";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+
+                    Database.instance.OpenConnection();
+                    cmd.ExecuteNonQuery();
+                    
+                    Database.instance.CloseConnection();
+                    issues += $"Success: {fname}, {silk} has been Saved.\n";
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"SAVE: {e.Message}");
+                    issues += $"Error: {fname}, {silk} Saving Error Occured.\n";
+                    continue;
+                }
+            }
+            return issues;
+        }
+
         private static bool CheckForDuplicate(string email)
         {
             
@@ -287,6 +409,8 @@ namespace DagiCaliburn.Models
 
                     }
                 Database.instance.CloseConnection();
+
+
                 }
                 catch (Exception e)
                 {

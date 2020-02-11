@@ -16,6 +16,7 @@ namespace DagiCaliburn.ViewModels
     class AnalyzeViewModel : Screen
     {
         private bool _showDuplicatesIsVisible = true;
+        private bool _isVisibileSavedWGrid = false;
         private bool _isVisibileAnalyzedWGrid = false;
         private bool _isVisibileAnalyzedRGrid = false;
         private string _isVisibileAnalyzedRText = "";
@@ -28,11 +29,18 @@ namespace DagiCaliburn.ViewModels
         private static BindableCollection<StudentModel> _suggestedStus = new BindableCollection<StudentModel>();
         private string _ffile = "";
         private string _dragText = "Drop Excel File here";
+        private string _savedText = "";
 
 
 
         public string DragText { get { return _dragText; }
             set { _dragText = value; NotifyOfPropertyChange(() => DragText); } }
+        public string SavedText
+        {
+            get { return _savedText; }
+            set { _savedText = value; NotifyOfPropertyChange(() => SavedText); }
+        }
+
 
 
         public bool IsVisibileAnalyzedWGrid { get { return _isVisibileAnalyzedWGrid; }
@@ -47,6 +55,16 @@ namespace DagiCaliburn.ViewModels
             {
                 _isVisibileAnalyzedRGrid = value;
                 NotifyOfPropertyChange(() => IsVisibileAnalyzedRGrid);
+            }
+        }
+
+        public bool IsVisibileSavedWGrid
+        {
+            get { return _isVisibileSavedWGrid; }
+            set
+            {
+                _isVisibileSavedWGrid = value;
+                NotifyOfPropertyChange(() => IsVisibileSavedWGrid);
             }
         }
 
@@ -115,6 +133,13 @@ namespace DagiCaliburn.ViewModels
             }
         }
 
+        public void SaveBtn()
+        {
+            ReadAppsExcel();
+            SavedText =  StudentModel.SaveApplicants(mouldedStudents);
+            IsVisibileSavedWGrid = true;
+        }
+
         public void ShowDuplicatesBtn()
         {
             if (!FFile.Equals("")) {
@@ -151,7 +176,9 @@ namespace DagiCaliburn.ViewModels
         {
             IsVisibileAnalyzedRGrid = false;
             IsVisibileAnalyzedWGrid = false;
+            IsVisibileSavedWGrid = false;
             AnalyzedWText = "";
+            SavedText = "";
             AnalyzedRText = "";
             IsVisibileDropExcel = true;
             IsVisibileSuggestion = false;
@@ -162,6 +189,41 @@ namespace DagiCaliburn.ViewModels
             SuggestedStus.Clear();
             mouldedStudents.Clear();
             DragText = "Drop Excel File here";
+        }
+
+        private void ReadAppsExcel()
+        {
+            try
+            {
+                WorkBook wb = WorkBook.Load(FFile);
+                WorkSheet ws = wb.WorkSheets.First();
+                foreach (RangeRow row in ws.Rows)
+                {
+                    if (row.First().Value.ToString().Trim().Equals("Type"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("New apps Row >>  ");
+                        List<IronXL.Cell> rowDatas = row.ToList();
+                        StudentModel st;
+                        
+                            st = new StudentModel(rowDatas[3].Value.ToString(), rowDatas[4].Value.ToString(), rowDatas[2].Value.ToString());
+                            
+                        
+                        StudentModel tok = st;
+                        mouldedStudents.Add(tok);
+                        Console.WriteLine("$$$ " + st.Name + " : " + st.Phone + " : " + st.Email + " : " + st.Params + " : " + st.Errors );
+                        st = null;
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Apps : " + e.Message);
+            }
         }
 
         private void ReadExcel()

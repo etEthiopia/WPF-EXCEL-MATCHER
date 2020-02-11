@@ -77,13 +77,22 @@
   materialDesign:HintAssist.Hint="Analyzed Doc File Name"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </StackPanel>
-                <Button HorizontalAlignment="Right"  x:Name="ShowDuplicatesBtn" Grid.Column="1"
+                <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="SaveBtn" 
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+    
+    Content="Save"
+    Margin="2,0" />
+                    
+                    <Button x:Name="ShowDuplicatesBtn" 
     Style="{StaticResource MaterialDesignRaisedButton}"
     materialDesign:ButtonProgressAssist.Value="-1"
     materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
     materialDesign:ButtonProgressAssist.IsIndeterminate="True"
     Content="Analyze"
     Margin="2,0" />
+                </StackPanel>
+                
             </Grid>
         </Grid>
         <Grid x:Name="IsVisibileSuggestion" Margin="0 10" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
@@ -145,6 +154,21 @@
 
                 </TextBlock>
             </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="0" Grid.RowSpan="2" x:Name="IsVisibileSavedWGrid"  Grid.Column="1">
+            <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch">
+                <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
+  Background="{DynamicResource PrimaryHueMidBrush}"
+  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+  Width="Auto" Margin="20, 10" 
+  Padding="20"
+  UniformCornerRadius="6">
+                    <TextBlock x:Name="SavedText" FontSize="15"
+    TextWrapping="Wrap">
+
+                    </TextBlock>
+                </materialDesign:Card>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>
