@@ -111,7 +111,7 @@ namespace DagiCaliburn.Models
 
                     
                 }
-                
+                sugesstions = sugesstions.OrderByDescending(c => c.Score).ToList();
                 return sugesstions;
             }
             catch(Exception e)

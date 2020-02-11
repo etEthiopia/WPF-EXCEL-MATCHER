@@ -9,6 +9,7 @@ using DagiCaliburn.Models;
 using System.Windows;
 using System.Text.RegularExpressions;
 using DagiCaliburn.Views;
+using System.IO;
 
 namespace DagiCaliburn.ViewModels
 {
@@ -26,7 +27,12 @@ namespace DagiCaliburn.ViewModels
         private List<StudentModel> mouldedStudents = new List<StudentModel>();
         private static BindableCollection<StudentModel> _suggestedStus = new BindableCollection<StudentModel>();
         private string _ffile = "";
+        private string _dragText = "Drop Excel File here";
 
+
+
+        public string DragText { get { return _dragText; }
+            set { _dragText = value; NotifyOfPropertyChange(() => DragText); } }
 
 
         public bool IsVisibileAnalyzedWGrid { get { return _isVisibileAnalyzedWGrid; }
@@ -155,6 +161,7 @@ namespace DagiCaliburn.ViewModels
             FileText = "";
             SuggestedStus.Clear();
             mouldedStudents.Clear();
+            DragText = "Drop Excel File here";
         }
 
         private void ReadExcel()
@@ -308,48 +315,59 @@ namespace DagiCaliburn.ViewModels
 
 
                 ws["A1:L1"].Style.SetBackgroundColor("#c4c4c4");
-                if(DestinationText.Equals("") || FileText.Equals(""))
+                if(FileText.Equals(""))
                 {
-                    Console.WriteLine($"{DestinationText}{FileText}");
-                    wb.SaveAs("HackthonData.xlsx");
-                    ShowMessage($"Destination / File Name is Empty\n" +
-                        $"The Analyzed Data has been saved as 'HackthonData.xlsx' in this Program Folder.", 'r');
-                } 
-                else if(DestinationText.Length <= 1 || FileText.Length <= 1)
-                {
-                    Console.WriteLine($"{DestinationText}{FileText}");
-                    wb.SaveAs("HackthonData.xlsx");
-                    ShowMessage($"Destination / File Name is Empty\n" +
-                        $"The Analyzed Data has been saved as 'HackthonData.xlsx' in this Program Folder.", 'r');
-                }
-                else
-                {
-                    if(FileText.Length <= 1)
+                    if (File.Exists("HackthonData.xlsx"))
                     {
-                        Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
-                        //Utils.BackToFront(DestinationText)
-                        wb.SaveAs("HackthonData.xlsx");
-                        ShowMessage($"File Name is Empty\n" +
-                        $"The Analyzed Data has been saved as 'Data.xlsx' in the Specified Destination.", 'r');
+                        ShowMessage($"File Name is Empty and there already exits a Document with the default name 'HacktonData'\n" +
+                       $"Delete the old existing Doc, or give the new one another FileName.", 'w');
+
                     }
                     else
                     {
+                        Console.WriteLine($"{FileText}");
+                        wb.SaveAs("HackthonData.xlsx");
+                        ShowMessage($"File Name is Empty\n" +
+                            $"The Analyzed Data has been saved as 'HackthonData.xlsx' in this Program Folder.", 'r');
+                    }
+                } 
+                else
+                {
+                    
                         if (Regex.IsMatch(FileText.Trim(), @"^[a-zA-z0-9 ]+$")) {
-                            Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
-                            //Utils.BackToFront(DestinationText + 
-                            wb.SaveAs(FileText + ".xlsx");
-                            ShowMessage($"The Analyzed Data has been saved as '{FileText}.xlsx' in the Specified Destination.", 'r');
+                        if (File.Exists($"{FileText.Trim()}.xlsx"))
+                        {
+                            ShowMessage($"File Name is Empty and there already exits a Document with the default name 'HacktonData'\n" +
+                           $"Delete the old existing Doc, or give the new one another FileName.", 'w');
+
                         }
                         else
                         {
-                            Console.WriteLine($"{Utils.BackToFront(DestinationText)}{FileText}");
+                            Console.WriteLine($"{FileText}");
+                            //Utils.BackToFront(DestinationText + 
+                            wb.SaveAs(FileText.Trim() + ".xlsx");
+                            ShowMessage($"The Analyzed Data has been saved as '{FileText}.xlsx' in the Specified Destination.", 'r');
+                        }
+                        }
+                        else
+                        {
+                        if (File.Exists("HackthonData.xlsx"))
+                        {
+                            ShowMessage($"File Name is Empty and there already exits a Document with the default name 'HacktonData'\n" +
+                           $"Delete the old existing Doc, or give the new one another FileName.", 'w');
+
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{FileText}");
                             //wb.SaveAs("Dsaf")
                             //Utils.BackToFront(DestinationText + 
                             wb.SaveAs("HackthonData.xlsx");
                             ShowMessage($"File Name was entered in a Wrong Format\n" +
                         $"The Analyzed Data has been saved as 'Data.xlsx' in the Specified Destination.", 'r');
                         }
-                    }
+                        }
+                    
                     
                 }
                 

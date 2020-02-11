@@ -58,7 +58,7 @@
 
             <Grid>
 
-                <TextBlock Name="DragText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center"
+                <TextBlock  x:Name="DragText" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center"
     Style="{StaticResource MaterialDesignDisplay1TextBlock}" FontWeight="Light">
  Drop Excel File here
                 </TextBlock>
