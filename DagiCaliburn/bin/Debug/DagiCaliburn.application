@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DagiCaliburn.exe.manifest" size="17638">
+    <dependentAssembly dependencyType="install" codebase="DagiCaliburn.exe.manifest" size="18132">
       <assemblyIdentity name="DagiCaliburn.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>FO1UPHTCX2S0dRc6HxdyplaTjLXkz+1mWsqjnGRHVgY=</dsig:DigestValue>
+        <dsig:DigestValue>nAa1eDGOzwBNBSXwOGtcjdvK02jbkqxUIAzc1pTplfw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
