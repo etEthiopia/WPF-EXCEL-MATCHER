@@ -18,8 +18,10 @@
         <Grid Grid.Column="0" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -45,7 +47,7 @@
 
                 </ComboBox>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid x:Name="OrgGridIsVisible" Grid.Row="2">
             <materialDesign:Card Margin="10"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                   materialDesign:ShadowAssist.ShadowDepth="Depth5" 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
@@ -67,54 +69,62 @@
                                 <BitmapImage UriSource ="/Resources/logo.png"/>
                             </Image.Source>
                         </Image>
-                        <TextBox Margin="10 0" Grid.Row="1" VerticalAlignment="Center" Foreground="WhiteSmoke" 
+                        <Button HorizontalAlignment="Right" Height="20" x:Name="CloseOrg" Width="20" VerticalAlignment="Top" Background="Red" 
+  Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+  ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                            <materialDesign:PackIcon
+    Kind="Close"
+    Height="10"
+    Width="10" />
+                        </Button>
+                        <TextBox Margin="10 0" x:Name="OrgNameText" Grid.Row="1" VerticalAlignment="Center" Foreground="WhiteSmoke" 
   materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.Foreground="WhiteSmoke" FontSize="15"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <Grid Grid.Row="2" Margin="10 0" VerticalAlignment="Center">
+                        <Grid Grid.Row="2" Margin="10 0" x:Name="HacksIsVisibile" VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow"
+                            <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Stretch" Margin="0 0 10 0"
     Style="{StaticResource MaterialDesignBody1TextBlock}">
   Organized Hackhons
                             </TextBlock>
- 
-                            <TextBox Grid.Column="1"
-  x:Name="Hacks"
+
+                            <TextBox Grid.Column="1" x:Name="OrgHacksText" HorizontalContentAlignment="Center"
+  
   materialDesign:HintAssist.Hint="Here" />
                         </Grid>
                         <Grid Grid.Row="3">
 
                             <Grid x:Name="IsVisibileSavedWGrid" >
-                                <ScrollViewer Grid.Row="1"  HorizontalAlignment="Stretch">
+                                
                                     <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" 
   Background="Red"
   Foreground="White"
   Width="Auto" Margin="20, 10" 
   Padding="20"
   UniformCornerRadius="6">
-                                        <TextBlock x:Name="SavedWText" FontSize="15"
+                                        <TextBlock x:Name="SavedWText" FontSize="10"
     TextWrapping="Wrap">
 
                                         </TextBlock>
                                     </materialDesign:Card>
-                                </ScrollViewer>
+                                
                             </Grid>
                             <Grid x:Name="IsVisibileSavedRGrid" >
-                                <ScrollViewer Grid.Row="1"  HorizontalAlignment="Stretch">
+                                
                                     <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" 
   Background="Green"
   Foreground="White"
   Width="Auto" Margin="20, 10" 
   Padding="20"
   UniformCornerRadius="6">
-                                        <TextBlock x:Name="SavedRText" FontSize="15"
+                                        <TextBlock x:Name="SavedRText" FontSize="10"
     TextWrapping="Wrap">
 
                                         </TextBlock>
                                     </materialDesign:Card>
-                                </ScrollViewer>
+                                
                             </Grid>
 
                         </Grid>
@@ -122,8 +132,8 @@
                     
             </materialDesign:Card>
             </Grid>
-            <Grid Grid.Row="2" x:Name="AddOrgGridIsVisible">
-                <Button HorizontalAlignment="Right"
+            <Grid Grid.Row="1" x:Name="AddOrgGridIsVisible" Margin="0 10">
+                <Button HorizontalAlignment="Right" x:Name="AddBtn"
   Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
   ToolTip="MaterialDesignFloatingActionMiniDarkButton">
                     <materialDesign:PackIcon
@@ -132,13 +142,24 @@
     Width="24" />
                 </Button>
             </Grid>
-            <Grid Grid.Row="2" x:Name="SaveOrgGridIsVisible">
-                <Button HorizontalAlignment="Left"
+            <Grid Grid.Row="3" x:Name="SaveOrgGridIsVisible">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid x:Name="DeleteOrgGridIsVisible">
+                        <Button HorizontalAlignment="Right" Background="Red" x:Name="DeleteBtn" BorderBrush="Red" Margin="10 0"
     Style="{StaticResource MaterialDesignRaisedDarkButton}"
     
     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
-                    SAVE
-                </Button>
+                        DELETE
+                    </Button>
+                    </Grid>
+                    <Button HorizontalAlignment="Right" x:Name="SaveBtn"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+    
+    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                        SAVE
+                    </Button>
+                </StackPanel>
+                
             </Grid>
 
 

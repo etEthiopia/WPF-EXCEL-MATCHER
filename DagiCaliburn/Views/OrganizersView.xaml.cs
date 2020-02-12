@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DagiCaliburn.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,18 @@ namespace DagiCaliburn.Views
 
         private void Organizers_Selected(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Organizers.SelectedItem);
+            
+            try
+            {
+                IndexViewModel.organizersView.ShowOrg(Organizers.SelectedItem.ToString());
+                Console.WriteLine($"selected " + Organizers.SelectedItem);
+            }
+            catch (Exception)
+            {
+                IndexViewModel.organizersView.ShowOrg();
+                Console.WriteLine($"selected " + "Nil Nil");
+            }
+            
         }
     }
 }
