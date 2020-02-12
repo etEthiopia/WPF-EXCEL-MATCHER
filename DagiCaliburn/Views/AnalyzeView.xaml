@@ -12,7 +12,7 @@
       d:DesignHeight="390" d:DesignWidth="780"
       >
 
-    <Grid Background="White">
+    <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -34,10 +34,10 @@
         </Button>
 
         <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" x:Name="ClearBtn" Height="35" Width="35" HorizontalAlignment="Right" VerticalAlignment="Top"
-                          Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                           ToolTip="MaterialDesignFloatingActionMiniLightButton">
             <materialDesign:PackIcon
-                            Foreground="White"
+                            
                             Kind="SettingsBackupRestore"
                             Height="24"
                             Width="24" />
@@ -78,18 +78,18 @@
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="SaveBtn" 
-    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    <Button x:Name="SaveBtn"  Background="Blue" BorderBrush="Blue"
+     Style="{StaticResource MaterialDesignRaisedDarkButton}"
     
-    Content="Save"
+    Content="SAVE"
     Margin="2,0" />
                     
-                    <Button x:Name="ShowDuplicatesBtn" 
+                    <Button x:Name="ShowDuplicatesBtn"  Foreground="White"
     Style="{StaticResource MaterialDesignRaisedButton}"
     materialDesign:ButtonProgressAssist.Value="-1"
     materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
     materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-    Content="Analyze"
+    Content="ANLAYZE"
     Margin="2,0" />
                 </StackPanel>
                 

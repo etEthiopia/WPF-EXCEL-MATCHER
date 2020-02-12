@@ -7,6 +7,8 @@
              xmlns:cal="http://www.caliburnproject.org"
              Title="CheckSum"
              mc:Ignorable="d" 
+        TextElement.Foreground="{DynamicResource ResourceKey=MaterialDesignBody}"
+        Background="{DynamicResource ResourceKey=MaterialDesignPaper}"
                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              MaxHeight="900" >
 
@@ -26,12 +28,7 @@
       x:Name="AnalyzeMenu"              
       IsChecked="True"
       Content="_ANALYZE" />
-                <RadioButton
-      Style="{StaticResource MaterialDesignTabRadioButton}"
-      Margin="4"
-      x:Name="ApplicantsMenu"                 
-      IsChecked="False"
-      Content="_COMPETETORS" />
+                
                 <RadioButton
       Style="{StaticResource MaterialDesignTabRadioButton}"
       Margin="4"

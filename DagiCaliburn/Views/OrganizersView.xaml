@@ -9,7 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       >
 
-    <Grid Background="white">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -47,8 +47,8 @@
 
                 </ComboBox>
             </Grid>
-            <Grid x:Name="OrgGridIsVisible" Grid.Row="2">
-            <materialDesign:Card Margin="10"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+            <Grid x:Name="OrgGridIsVisible" Grid.Row="2" >
+            <materialDesign:Card Margin="10 20"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                   materialDesign:ShadowAssist.ShadowDepth="Depth5" 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
@@ -64,11 +64,21 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Image Margin="10" HorizontalAlignment="Center">
+                        <Button Margin="10" HorizontalAlignment="Center"
+  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+  ToolTip="MaterialDesignFloatingActionMiniAccentButton">
+                            <materialDesign:PackIcon
+                                
+    Kind="AccountCircle"
+    Height="34"
+    Width="34" />
+                        </Button>
+                        <!--<Image Margin="10" HorizontalAlignment="Center">
                             <Image.Source>
                                 <BitmapImage UriSource ="/Resources/logo.png"/>
                             </Image.Source>
-                        </Image>
+                        </Image>-->
+                        
                         <Button HorizontalAlignment="Right" Height="20" x:Name="CloseOrg" Width="20" VerticalAlignment="Top" Background="Red" 
   Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
   ToolTip="MaterialDesignFloatingActionMiniDarkButton">
@@ -133,7 +143,7 @@
             </materialDesign:Card>
             </Grid>
             <Grid Grid.Row="1" x:Name="AddOrgGridIsVisible" Margin="0 10">
-                <Button HorizontalAlignment="Right" x:Name="AddBtn"
+                <Button HorizontalAlignment="Right" x:Name="AddBtn" Background="Blue" BorderBrush="Blue"
   Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
   ToolTip="MaterialDesignFloatingActionMiniDarkButton">
                     <materialDesign:PackIcon
