@@ -6,9 +6,145 @@
       xmlns:local="clr-namespace:DagiCaliburn.Views"
       mc:Ignorable="d" 
       d:DesignHeight="390" d:DesignWidth="780"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       >
 
-    <Grid Background="red">
-        
+    <Grid Background="white">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+              Width="Auto" />
+                    <ColumnDefinition
+              Width="*" />
+                    <ColumnDefinition
+              Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+            Style="{DynamicResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon
+              Kind="Magnify"
+              Opacity=".56" />
+                </Button>
+                <ComboBox Grid.Column="1" x:Name="Organizers" SelectedItem="{Binding SelectedOrg}"
+            Margin="8 0 0 0" SelectionChanged="Organizers_Selected"
+  materialDesign:HintAssist.Hint="Search"
+                
+  IsEditable="True"
+  materialDesign:HintAssist.HintOpacity=".26">
+
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="1">
+            <materialDesign:Card Margin="10"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  materialDesign:ShadowAssist.ShadowDepth="Depth5" 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                  Padding="10"
+                  UniformCornerRadius="10">
+
+
+                <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Margin="10" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <BitmapImage UriSource ="/Resources/logo.png"/>
+                            </Image.Source>
+                        </Image>
+                        <TextBox Margin="10 0" Grid.Row="1" VerticalAlignment="Center" Foreground="WhiteSmoke" 
+  materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.Foreground="WhiteSmoke" FontSize="15"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <Grid Grid.Row="2" Margin="10 0" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow"
+    Style="{StaticResource MaterialDesignBody1TextBlock}">
+  Organized Hackhons
+                            </TextBlock>
+ 
+                            <TextBox Grid.Column="1"
+  x:Name="Hacks"
+  materialDesign:HintAssist.Hint="Here" />
+                        </Grid>
+                        <Grid Grid.Row="3">
+
+                            <Grid x:Name="IsVisibileSavedWGrid" >
+                                <ScrollViewer Grid.Row="1"  HorizontalAlignment="Stretch">
+                                    <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" 
+  Background="Red"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="20"
+  UniformCornerRadius="6">
+                                        <TextBlock x:Name="SavedWText" FontSize="15"
+    TextWrapping="Wrap">
+
+                                        </TextBlock>
+                                    </materialDesign:Card>
+                                </ScrollViewer>
+                            </Grid>
+                            <Grid x:Name="IsVisibileSavedRGrid" >
+                                <ScrollViewer Grid.Row="1"  HorizontalAlignment="Stretch">
+                                    <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" 
+  Background="Green"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="20"
+  UniformCornerRadius="6">
+                                        <TextBlock x:Name="SavedRText" FontSize="15"
+    TextWrapping="Wrap">
+
+                                        </TextBlock>
+                                    </materialDesign:Card>
+                                </ScrollViewer>
+                            </Grid>
+
+                        </Grid>
+                </Grid>
+                    
+            </materialDesign:Card>
+            </Grid>
+            <Grid Grid.Row="2" x:Name="AddOrgGridIsVisible">
+                <Button HorizontalAlignment="Right"
+  Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+  ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                    <materialDesign:PackIcon
+    Kind="Add"
+    Height="24"
+    Width="24" />
+                </Button>
+            </Grid>
+            <Grid Grid.Row="2" x:Name="SaveOrgGridIsVisible">
+                <Button HorizontalAlignment="Left"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+    
+    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                    SAVE
+                </Button>
+            </Grid>
+
+
+
+        </Grid>
+        <Grid Grid.Column="1" Margin="10"></Grid>
+        <Grid Grid.Column="2" Margin="10"></Grid>
     </Grid>
 </UserControl>

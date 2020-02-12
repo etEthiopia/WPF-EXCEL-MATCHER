@@ -24,5 +24,10 @@ namespace DagiCaliburn.Views
         {
             InitializeComponent();
         }
+
+        private void Organizers_Selected(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Organizers.SelectedItem);
+        }
     }
 }

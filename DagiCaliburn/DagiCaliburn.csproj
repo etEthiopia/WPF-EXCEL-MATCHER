@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\OrganizerModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="ViewModels\AnalyzeViewModel.cs" />
@@ -248,7 +249,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\logo.png" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
