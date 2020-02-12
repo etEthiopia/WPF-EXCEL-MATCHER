@@ -48,6 +48,15 @@ namespace DagiCaliburn.Models
 
         }
 
+        public OrganizerModel() { }
+
+        public OrganizerModel(int id, string name, int hack)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Hack = hack;
+        }
+
         public static OrganizerModel GetOrg(string name)
         {
             OrganizerModel om = new OrganizerModel();
@@ -166,6 +175,73 @@ namespace DagiCaliburn.Models
                 Database.instance.CloseConnection();
             }
 
+            return response;
+        }
+
+        public static List<OrganizerModel> GetOrgs(string order = "ASC")
+        {
+            List<OrganizerModel> orgs = new List<OrganizerModel>();
+
+
+            string query = $"SELECT * from organizers ORDER BY hacks {order}";
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+
+                Database.instance.OpenConnection();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    orgs.Add(new OrganizerModel(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["hacks"].ToString())));
+
+                }
+                Database.instance.CloseConnection();
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Get Orgs Exception, {e.Message}");
+                Database.instance.CloseConnection();
+            }
+
+            return orgs;
+
+        }
+
+        public static string SetNextOrgs(List<OrganizerModel> next){
+
+            string response = "true";
+
+            string query = $"INSERT INTO organizers (id, hacks) VALUES ({next[0].Id}, {next[0].Hack +1})," +
+                $"({next[1].Id}, {next[1].Hack +1})," +
+                $"({next[2].Id}, {next[2].Hack +1})," +
+                $"({next[3].Id}, {next[3].Hack +1})," +
+                $"({next[4].Id}, {next[4].Hack +1})" +
+                $"ON DUPLICATE KEY UPDATE id = VALUES(id), hacks = VALUES(hacks)";
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+
+                Database.instance.OpenConnection();
+
+                cmd.ExecuteNonQuery();
+
+
+                Database.instance.CloseConnection();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Update Next Org by Name Exception, {e.Message}");
+                response = e.Message;
+                Database.instance.CloseConnection();
+            }
             return response;
         }
 

@@ -18,11 +18,18 @@ namespace DagiCaliburn.ViewModels
         private bool _orgIsVisible = false;
         private bool _isVisibileSavedWGrid = false;
         private bool _isVisibileSavedRGrid = false;
+        private bool _isVisibileNextWGrid = false;
+        private bool _isVisibileNextRGrid = false;
         private bool _deleteOrgGridIsVisible = false;
         private bool _saveOrgGridIsVisible = false;
         private bool _hacksIsVisibile = false;
         private string _savedRText = "";
         private string _savedWText = "";
+        private string _nextWText = "";
+        private string _nextRText = "";
+        private BindableCollection<OrganizerModel> _suggestedOrgs = new BindableCollection<OrganizerModel>();
+
+        int k;
 
         public OrganizerModel org = new OrganizerModel();
 
@@ -42,6 +49,12 @@ namespace DagiCaliburn.ViewModels
             }
         }
 
+        public BindableCollection<OrganizerModel> SuggestedOrgs
+        {
+            get { return _suggestedOrgs; }
+            set { _suggestedOrgs = value; NotifyOfPropertyChange(() => SuggestedOrgs); }
+        }
+
         public bool OrgGridIsVisible { get { return _orgIsVisible; } set { _orgIsVisible = value; NotifyOfPropertyChange(() => OrgGridIsVisible); } }
 
         public string SelectedOrg { get { return _selectedOrg; }
@@ -55,6 +68,26 @@ namespace DagiCaliburn.ViewModels
             {
                 _isVisibileSavedRGrid = value;
                 NotifyOfPropertyChange(() => IsVisibileSavedRGrid);
+            }
+        }
+                    
+        public bool IsVisibileNextRGrid
+        {
+            get { return _isVisibileNextRGrid; }
+            set
+            {
+                _isVisibileNextRGrid = value;
+                NotifyOfPropertyChange(() => IsVisibileNextRGrid);
+            }
+        }
+
+        public bool IsVisibileNextWGrid
+        {
+            get { return _isVisibileNextWGrid; }
+            set
+            {
+                _isVisibileNextWGrid = value;
+                NotifyOfPropertyChange(() => IsVisibileNextWGrid);
             }
         }
 
@@ -89,6 +122,18 @@ namespace DagiCaliburn.ViewModels
             set { _savedRText = value; NotifyOfPropertyChange(() => SavedRText); }
         }
 
+        public string NextRText
+        {
+            get { return _nextRText; }
+            set { _nextRText = value; NotifyOfPropertyChange(() => NextRText); }
+        }
+        public string NextWText
+        {
+            get { return _nextWText; }
+            set { _nextWText = value; NotifyOfPropertyChange(() => NextWText); }
+        }
+
+
         public string SavedWText
         {
             get { return _savedWText; }
@@ -117,9 +162,23 @@ namespace DagiCaliburn.ViewModels
             set { _orgs = value; NotifyOfPropertyChange(() => Organizers); }
         }
 
+
+        public void SuggestionBtn()
+        {
+            ++k;
+            IsVisibileNextWGrid = false;
+            IsVisibileNextRGrid = false;
+            NextWText = "";
+            NextRText = "";
+            SuggestedOrgs = new BindableCollection<OrganizerModel>(Utils.NextOrgs(k));
+            
+        }
+
         public OrganizersViewModel()
         {
             Organizers = OrganizerModel.GetOrgsList();
+            SuggestedOrgs = new BindableCollection<OrganizerModel>(Utils.NextOrgs(k));
+            k = 0;
         }
 
 
@@ -191,6 +250,21 @@ namespace DagiCaliburn.ViewModels
             OrgGridIsVisible = true;
         }
 
+        public void SaveSugOrgBtn()
+        {
+            string k = OrganizerModel.SetNextOrgs(SuggestedOrgs.ToList());
+            if (k.Equals("true"))
+            {
+                Organizers = OrganizerModel.GetOrgsList();
+                ShowNMessage("Organizers have been updated Successfuly", 'r');
+
+            }
+            else
+            {
+                ShowNMessage($"Error: {k}", 'w');
+            }
+        }
+
         private void ShowMessage(string message, char type)
         {
             Console.WriteLine($"Message: {message} : {type}");
@@ -212,6 +286,31 @@ namespace DagiCaliburn.ViewModels
                 default:
                     IsVisibileSavedWGrid = true;
                     SavedWText = message;
+                    break;
+            }
+        }
+
+        private void ShowNMessage(string message, char type)
+        {
+            Console.WriteLine($"Next: {message} : {type}");
+
+            IsVisibileNextWGrid = false;
+            IsVisibileNextRGrid = false;
+            NextWText = "";
+            NextRText = "";
+            switch (type)
+            {
+                case 'w':
+                    IsVisibileNextWGrid = true;
+                    NextWText = message;
+                    break;
+                case 'r':
+                    IsVisibileNextRGrid = true;
+                    NextRText = message;
+                    break;
+                default:
+                    IsVisibileNextWGrid = true;
+                    NextWText = message;
                     break;
             }
         }

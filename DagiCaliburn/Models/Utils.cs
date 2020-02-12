@@ -124,5 +124,58 @@ namespace DagiCaliburn.Models
         }
 
 
+        public static List<OrganizerModel> NextOrgs(int i)
+        {
+            List<OrganizerModel> organizers = new List<OrganizerModel>();
+            int b = 0;
+            try
+            {
+                Random rnd = new Random();
+                organizers = OrganizerModel.GetOrgs();
+                Console.WriteLine($"COUNTER {i}");
+                int hk = organizers[4].Hack;
+                
+                for(int k =5; k < organizers.Count; k++)
+                {
+                    if(organizers[k].Hack <= hk)
+                    {
+                        int op = rnd.Next(0, 5);
+                        if (organizers[op].Hack >= organizers[k].Hack) {
+                            organizers[op] = organizers[k];
+                        }
+                    }
+                }
+
+
+                if (i < 2)
+                {
+                    foreach(OrganizerModel om in organizers)
+                    {
+                        if (om.Id == 4)
+                        {
+                            b = organizers.IndexOf(om);
+                        }
+                    }
+                    if(b >= 5 && organizers[b].Hack == 1)
+                    {
+                        
+
+                        organizers[rnd.Next(0, 5)] = organizers[b];
+                    }
+                    
+                }
+                
+
+                return organizers.GetRange(0,5);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Next Orgs Exception {e.Message}");
+                return organizers;
+            }
+
+
+            
+        }
     }
 }

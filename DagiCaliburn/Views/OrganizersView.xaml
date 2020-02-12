@@ -11,7 +11,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -172,10 +172,91 @@
                 
             </Grid>
 
-
-
         </Grid>
         <Grid Grid.Column="1" Margin="10"></Grid>
-        <Grid Grid.Column="2" Margin="10"></Grid>
+        <Grid Grid.Column="2" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Stretch" >
+                <TextBlock 
+    Style="{StaticResource MaterialDesignHeadlineTextBlock}">
+      Suggestions
+                </TextBlock>
+                <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" x:Name="SuggestionBtn" Height="35" Width="35" HorizontalAlignment="Right" VerticalAlignment="Top"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                    <materialDesign:PackIcon
+                            
+                            Kind="Refresh"
+                            Height="24"
+                            Width="24" />
+                </Button>
+            </Grid>
+           
+            <DataGrid Grid.Row="1" Grid.Column="1" 
+                  Margin="0 8 0 8"
+                  CanUserReorderColumns="False"   
+                  ItemsSource="{Binding SuggestedOrgs, Mode=OneWay}"
+                  Width="Auto"
+                  CanUserResizeColumns="True"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserDeleteRows="False"
+                  
+                  
+                  CanUserAddRows="False" >
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name"  Binding="{Binding Path= Name }">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Org" Binding="{Binding Path= Hack }">
+                    </DataGridTextColumn>
+                    
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2"  x:Name="IsVisibileNextWGrid" >
+
+                <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" 
+  Background="Red"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="20"
+  UniformCornerRadius="6">
+                    <TextBlock x:Name="NextWText" FontSize="8"
+    TextWrapping="Wrap">
+
+                    </TextBlock>
+                </materialDesign:Card>
+
+            </Grid>
+            <Grid x:Name="IsVisibileNextRGrid" Grid.Row="2" >
+
+                <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" 
+  Background="Green"
+  Foreground="White"
+  Width="Auto" Margin="20, 10" 
+  Padding="20"
+  UniformCornerRadius="6">
+                    <TextBlock x:Name="NextRText" FontSize="10"
+    TextWrapping="Wrap">
+
+                    </TextBlock>
+                </materialDesign:Card>
+
+            </Grid>
+
+            <Button Grid.Row="2" HorizontalAlignment="Right" x:Name="SaveSugOrgBtn"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+    
+    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                SAVE
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>
