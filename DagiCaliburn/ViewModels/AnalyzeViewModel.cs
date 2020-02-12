@@ -15,7 +15,7 @@ namespace DagiCaliburn.ViewModels
 {
     class AnalyzeViewModel : Screen
     {
-        private bool _showDuplicatesIsVisible = true;
+        private bool _showDuplicatesIsVisible = false;
         private bool _isVisibileSavedWGrid = false;
         private bool _isVisibileAnalyzedWGrid = false;
         private bool _isVisibileAnalyzedRGrid = false;
@@ -176,6 +176,7 @@ namespace DagiCaliburn.ViewModels
         {
             IsVisibileAnalyzedRGrid = false;
             IsVisibileAnalyzedWGrid = false;
+            ShowDuplicatesIsVisible = false;
             IsVisibileSavedWGrid = false;
             AnalyzedWText = "";
             SavedText = "";
