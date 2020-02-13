@@ -17,12 +17,14 @@ namespace DagiCaliburn.ViewModels
         private bool New = false;
         private bool _orgIsVisible = false;
         private bool _isVisibileSavedWGrid = false;
+        private bool _suggestGridIsVisible = false;
         private bool _isVisibileSavedRGrid = false;
         private bool _isVisibileNextWGrid = false;
         private bool _isVisibileNextRGrid = false;
         private bool _deleteOrgGridIsVisible = false;
         private bool _saveOrgGridIsVisible = false;
         private bool _hacksIsVisibile = false;
+        private bool _showNextOrgsIsVisible = true;
         private string _savedRText = "";
         private string _savedWText = "";
         private string _nextWText = "";
@@ -49,11 +51,18 @@ namespace DagiCaliburn.ViewModels
             }
         }
 
+        public bool SuggestGridIsVisible { get { return _suggestGridIsVisible; }
+            set { _suggestGridIsVisible = value; NotifyOfPropertyChange(() => SuggestGridIsVisible); } }
+
         public BindableCollection<OrganizerModel> SuggestedOrgs
         {
             get { return _suggestedOrgs; }
             set { _suggestedOrgs = value; NotifyOfPropertyChange(() => SuggestedOrgs); }
         }
+
+        public bool ShowNextOrgsIsVisibile
+        { get {return  _showNextOrgsIsVisible;} set { _showNextOrgsIsVisible = value 
+                    ; NotifyOfPropertyChange(() => ShowNextOrgsIsVisibile); } }
 
         public bool OrgGridIsVisible { get { return _orgIsVisible; } set { _orgIsVisible = value; NotifyOfPropertyChange(() => OrgGridIsVisible); } }
 
@@ -191,6 +200,20 @@ namespace DagiCaliburn.ViewModels
             DeleteOrgGridIsVisible = false;
             HacksIsVisibile = false;
 
+        }
+
+        public void ShowNext()
+        {
+            Console.WriteLine($"ShowNext");
+            SuggestGridIsVisible = true;
+            ShowNextOrgsIsVisibile = false;
+
+        }
+
+        public void CloseBtn()
+        {
+            SuggestGridIsVisible = false;
+            ShowNextOrgsIsVisibile = true;
         }
 
         public void SaveBtn()

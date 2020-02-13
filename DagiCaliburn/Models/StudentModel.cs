@@ -58,7 +58,7 @@ namespace DagiCaliburn.Models
                 Console.WriteLine($"Name.Length = 0 : {Params} : {Errors}");
             }
 
-            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && !phone.Contains('@'))
+            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && phone.Trim().Length >= 9 && !phone.Contains('@'))
             {
                 var isPhone = 0;
                 if (int.TryParse(phone, out isPhone))
@@ -113,7 +113,6 @@ namespace DagiCaliburn.Models
 
         }
 
-
         public StudentModel(string name, string phone, string email, string timestamp, string women, string edbg, string thoughts, string gender, string type = "Individual")
         {
             if(Regex.IsMatch(name.Trim(), @"^[a-zA-z ]+$"))
@@ -129,7 +128,7 @@ namespace DagiCaliburn.Models
                 Console.WriteLine($"Name.Length = 0 : {Params} : {Errors}");
             }
 
-            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && !phone.Contains('@'))
+            if (phone.Trim().Contains("9") && phone.Trim().Length <= 10 && phone.Trim().Length >= 9 && !phone.Contains('@'))
             {
                 var isPhone = 0;
                 if (int.TryParse(phone, out isPhone))
@@ -258,7 +257,7 @@ namespace DagiCaliburn.Models
                     foreach (string attr in studInfo)
                     {
 
-                        if (attr.Trim().Contains("9") && attr.Trim().Length <= 10 && !attr.Contains('@'))
+                        if (attr.Trim().Contains("9") && attr.Trim().Length <= 10 && attr.Trim().Length >=9 && !attr.Contains('@'))
                         {
                             var isPhone = 0;
                             if (int.TryParse(attr, out isPhone))

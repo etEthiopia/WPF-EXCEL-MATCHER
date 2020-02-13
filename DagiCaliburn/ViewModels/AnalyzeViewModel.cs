@@ -246,9 +246,15 @@ namespace DagiCaliburn.ViewModels
                         StudentModel st;  
                         if (rowDatas[5].Value.ToString().ToLower().Equals("yes"))
                         {
+                            
+                            
                             st = new StudentModel(rowDatas[2].Value.ToString(), rowDatas[3].Value.ToString(), rowDatas[1].Value.ToString(), rowDatas[0].Value.ToString(), rowDatas[7].Value.ToString(),
                                 rowDatas[8].Value.ToString(), rowDatas[9].Value.ToString(), rowDatas[4].Value.ToString(),"Team Leader");
                             st.Team = StudentModel.GetStudents(rowDatas[6].Value.ToString().Trim(), st.Name, out bool ap);
+                            if(st.Women > st.Team.Count)
+                            {
+                                st.Women = 0;
+                            }
                         }
                         else
                         {

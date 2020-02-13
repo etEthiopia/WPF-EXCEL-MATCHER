@@ -204,18 +204,31 @@
 
             
         </Grid>
-        <Grid Grid.Column="2" Margin="20 10">
+        <Grid Grid.Column="2" Margin="20 10" x:Name="SuggestGridIsVisible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid HorizontalAlignment="Stretch" >
-                <TextBlock 
-    Style="{StaticResource MaterialDesignHeadlineTextBlock}">
-      Suggestions
+                <TextBlock HorizontalAlignment="Left"
+    Style="{StaticResource MaterialDesignBody1TextBlock}">
+      Selected <LineBreak/>
+           Organizers
                 </TextBlock>
-                <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" x:Name="SuggestionBtn" Height="35" Width="35" HorizontalAlignment="Right" VerticalAlignment="Top"
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+
+                    <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" BorderBrush="Red" Background="Red" x:Name="CloseBtn" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                          ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                        <materialDesign:PackIcon
+                            Foreground="White"
+                            Kind="Close"
+                            Height="24"
+                            Width="24" />
+                    </Button>
+
+                    <Button Grid.Column="2" Margin="0,5,5,0" Grid.Row="0" x:Name="SuggestionBtn" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top"
                           Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                           ToolTip="MaterialDesignFloatingActionMiniLightButton">
                     <materialDesign:PackIcon
@@ -224,6 +237,8 @@
                             Height="24"
                             Width="24" />
                 </Button>
+                    
+                </StackPanel>
             </Grid>
            
             <DataGrid Grid.Row="1" Grid.Column="1" 
@@ -266,7 +281,6 @@
 
             </Grid>
             <Grid x:Name="IsVisibileNextRGrid" Grid.Row="2" >
-
                 <materialDesign:Card Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" 
   Background="Green"
   Foreground="White"
@@ -287,6 +301,16 @@
     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
                 SAVE
             </Button>
+        </Grid>
+        <Grid Grid.Column="2" x:Name="ShowNextOrgsIsVisibile">
+            <Button Grid.Column="2" BorderBrush="SteelBlue" x:Name="ShowNext" Background="SteelBlue" HorizontalAlignment="Center"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+     Content="Show Next Organizers"
+
+            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+            
+            
+        </Button>
         </Grid>
     </Grid>
 </UserControl>

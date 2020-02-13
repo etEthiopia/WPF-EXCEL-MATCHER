@@ -35,20 +35,20 @@ namespace DagiCaliburn.Models
                         {
                             if (!student.Params)
                             {
-                                student.Score -= student.Errors.Trim().Split('.').Length;
+                                student.Score -= student.Errors.Trim().Split('.').Length / 2;
                                 if (student.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                                 {
-                                    student.Score -= 5;
+                                    student.Score -= 9;
                                 }
                             }
                             foreach (StudentModel smb in student.Team)
                             {
                                 if (!smb.Params)
                                 {
-                                    student.Score -= smb.Errors.Trim().Split('.').Length;
+                                    student.Score -= smb.Errors.Trim().Split('.').Length / 2;
                                     if (smb.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                                     {
-                                        student.Score -= 9;
+                                        student.Score -= 5;
                                     }
                                 }
                             }
@@ -61,10 +61,10 @@ namespace DagiCaliburn.Models
                         {
                             if (!student.Params)
                             {
-                                student.Score -= student.Errors.Trim().Split('.').Length;
+                                student.Score -= student.Errors.Trim().Split('.').Length / 2;
                                 if (student.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                                 {
-                                    student.Score -= 5;
+                                    student.Score -= 9;
                                 }
                             }
                             foreach (StudentModel smb in student.Team)
@@ -74,7 +74,7 @@ namespace DagiCaliburn.Models
                                     student.Score -= smb.Errors.Trim().Split('.').Length /2;
                                     if (smb.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                                     {
-                                        student.Score -= 9;
+                                        student.Score -= 5;
                                     }
                                 }
                             }
@@ -85,7 +85,7 @@ namespace DagiCaliburn.Models
                         student.Score += 1;
                         if (!student.Params)
                         {
-                            student.Score -= student.Errors.Trim().Split('.').Length;
+                            student.Score -= student.Errors.Trim().Split('.').Length / 2;
                             if (student.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                             {
                                 student.Score -= 9;
@@ -96,7 +96,7 @@ namespace DagiCaliburn.Models
                     {
                         if (!student.Params)
                         {
-                            student.Score -= student.Errors.Trim().Split('.').Length;
+                            student.Score -= student.Errors.Trim().Split('.').Length / 2;
                             if (student.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
                             {
                                 student.Score -= 9;
