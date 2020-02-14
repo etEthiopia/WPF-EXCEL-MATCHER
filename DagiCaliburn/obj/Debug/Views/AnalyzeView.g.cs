@@ -177,7 +177,7 @@ namespace DagiCaliburn.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/DagiCaliburn;component/views/analyzeview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GDG;component/views/analyzeview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Views\AnalyzeView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
