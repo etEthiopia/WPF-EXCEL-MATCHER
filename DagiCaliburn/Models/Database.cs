@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using static System.Console;
 using MySql.Data.MySqlClient;
 using System.Windows;
+using System.Data.SQLite;
 
 namespace DagiCaliburn.Models
 {
     class Database
     {
         public MySqlConnection connection { get; }
+        public SQLiteConnection sqlite_conn;
         private string server;
         private string database;
         private string uid;
@@ -20,6 +22,8 @@ namespace DagiCaliburn.Models
         public MySqlCommand cmd;
         private Database()
         {
+            
+            sqlite_conn = CreateConnection();
             server = "localhost";
             database = "gdg";
             uid = "root";
@@ -32,6 +36,23 @@ namespace DagiCaliburn.Models
 
         }
         public static Database instance = new Database();
+
+        public SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection sqlite_conn;
+            // Create a new database connection:
+            sqlite_conn = new SQLiteConnection("Data Source=database.db;Version = 3; New = True; Compress = True; ");
+            // Open the connection:
+            try
+            {
+                sqlite_conn.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SQLite {ex.Message}");
+            }
+            return sqlite_conn;
+        }
 
 
         public bool OpenConnection()

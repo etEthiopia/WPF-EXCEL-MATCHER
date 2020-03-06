@@ -174,6 +174,7 @@ namespace DagiCaliburn.ViewModels
 
         public void ClearBtn()
         {
+            //StudentModel.CreateTable();
             IsVisibileAnalyzedRGrid = false;
             IsVisibileAnalyzedWGrid = false;
             ShowDuplicatesIsVisible = false;

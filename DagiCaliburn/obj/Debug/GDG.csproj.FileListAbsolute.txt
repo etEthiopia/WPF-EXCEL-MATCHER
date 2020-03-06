@@ -67,3 +67,9 @@ C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\GDG.exe.mani
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\GDG.application
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\GDG.exe
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\GDG.pdb
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.xml
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.SqlServer.xml

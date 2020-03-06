@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -42,6 +43,28 @@ namespace DagiCaliburn.Models
         public List<StudentModel> Team { get { return _team; } set { _team = value; } }
 
         public StudentModel() { }
+
+        public static void CreateTable()
+        {
+            try
+            {
+                SQLiteCommand sqlite_cmd;
+                string Createsql = "CREATE TABLE IF NOT EXISTS Students " +
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name VARCHAR(200), email VARCHAR (200) UNIQUE, " +
+                    "phone INTEGER, hack INTEGER)";
+                sqlite_cmd = Database.instance.sqlite_conn.CreateCommand();
+                sqlite_cmd.CommandText = Createsql;
+                sqlite_cmd.ExecuteNonQuery();
+                Console.WriteLine($"DONE CT");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"SQLITE CT: {e.Message}");
+            }
+
+
+        }
 
         public StudentModel(string name, string phone, string email)
         {
