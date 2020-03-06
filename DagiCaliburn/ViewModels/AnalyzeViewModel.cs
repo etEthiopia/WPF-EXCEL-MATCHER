@@ -135,11 +135,10 @@ namespace DagiCaliburn.ViewModels
 
         public void SaveBtn()
         {
-            
-            StudentModel.CheckForDuplicate("daginegussu@gmail.com");
-            //ReadAppsExcel();
-            //SavedText =  StudentModel.SaveApplicants(mouldedStudents);
-            //IsVisibileSavedWGrid = true;
+
+            ReadAppsExcel();
+            SavedText = StudentModel.SaveApplicants(mouldedStudents);
+            IsVisibileSavedWGrid = true;
         }
 
         public void ShowDuplicatesBtn()

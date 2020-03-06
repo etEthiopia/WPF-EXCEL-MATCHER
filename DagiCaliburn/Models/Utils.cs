@@ -141,31 +141,49 @@ namespace DagiCaliburn.Models
                     {
                         int op = rnd.Next(0, 5);
                         if (organizers[op].Hack >= organizers[k].Hack) {
+
+                            OrganizerModel tp = organizers[op];
                             organizers[op] = organizers[k];
+                            organizers[k] = tp;
+
                         }
                     }
                 }
+                
+                foreach (OrganizerModel ok in organizers)
+                {
 
+                    Console.WriteLine("PURE:" + ok.Name);
+                }
 
                 if (i < 2)
                 {
                     foreach(OrganizerModel om in organizers)
                     {
-                        if (om.Id == 4)
+                        Console.WriteLine("LOOKING: "+om.Name);
+                        if (om.Name.Contains("Bereket Y"))
                         {
                             b = organizers.IndexOf(om);
+                            break;
                         }
                     }
                     if(b >= 5 && organizers[b].Hack == 1)
                     {
-                        
 
-                        organizers[rnd.Next(0, 5)] = organizers[b];
+                        int tk = rnd.Next(0, 5);
+                        OrganizerModel tpp = organizers[tk];
+                        organizers[tk] = organizers[b];
+                        organizers[b] = tpp;
                     }
                     
+                    
                 }
-                
 
+                int tkt = rnd.Next(3, 5);
+                int tkk = rnd.Next(0, 3);
+                OrganizerModel tppt = organizers[tkt];
+                organizers[tkt] = organizers[tkk];
+                organizers[tkk] = tppt;
                 return organizers.GetRange(0,5);
             }
             catch(Exception e)

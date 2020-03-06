@@ -214,6 +214,7 @@ namespace DagiCaliburn.ViewModels
         {
             SuggestGridIsVisible = false;
             ShowNextOrgsIsVisibile = true;
+            k = 0;
         }
 
         public void SaveBtn()

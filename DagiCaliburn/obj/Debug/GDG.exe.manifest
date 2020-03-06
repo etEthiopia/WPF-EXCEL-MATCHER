@@ -151,14 +151,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GDG.exe" size="267224">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GDG.exe" size="265176">
       <assemblyIdentity name="GDG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RkEQlG9ASdCyYFqwz2ziuDMdTlrgtlnRlCw0++P2v/8=</dsig:DigestValue>
+        <dsig:DigestValue>zhMQfsdE7MvXJQbxsv4sMpJk+Wb3Z2fIIOpgx1eiPuc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -366,13 +366,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="DB.db" size="20480">
+  <file name="DB.db" size="24576">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ZKcW8Qj2EwmpGQuh3+GCT+lT/wfepJqxMRx8EvqQYSg=</dsig:DigestValue>
+      <dsig:DigestValue>SXUCQdFKfc6TldVWfojHeTpmQe9BpGnjXmVXe/QDShc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GDG.exe.config" size="1465">

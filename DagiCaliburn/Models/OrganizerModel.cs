@@ -15,37 +15,45 @@ namespace DagiCaliburn.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Hack { get; set; }
-        private int hp { get; set; }
-
+        
         public static List<string> GetOrgsList()
         {
             List<string> orgs = new List<string>();
 
 
-            string query = $"SELECT Name from organizers";
+            //string query = $"SELECT Name from organizers";
             
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+                //MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
 
-                Database.instance.OpenConnection();
+                //Database.instance.OpenConnection();
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                //MySqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
+                //while (reader.Read())
+                //{
+
+                //    orgs.Add(reader["Name"].ToString());
+
+                //}
+                //Database.instance.CloseConnection();
+
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
                 {
+                    var output = cnn.Query<string>($"SELECT name from organizers").ToList();
+                    Console.WriteLine("ORGS: " + output.Count);
+                    orgs = output;
 
-                    orgs.Add(reader["Name"].ToString());
 
                 }
-                Database.instance.CloseConnection();
 
 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Get Orgs Exception, {e.Message}");
-                Database.instance.CloseConnection();
+                //Database.instance.CloseConnection();
             }
 
             return orgs;
@@ -68,28 +76,23 @@ namespace DagiCaliburn.Models
 
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
-
-                Database.instance.OpenConnection();
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
                 {
+                    var output = cnn.Query<OrganizerModel>($"SELECT * from organizers WHERE Name='{name}' LIMIT 1", new DynamicParameters());
+                    //Console.WriteLine($"GET ORG: {output.ToList()[0]}");
 
-                    om.Id =  int.Parse(reader["id"].ToString());
-                    om.Name = reader["Name"].ToString();
-                    om.Hack = int.Parse(reader["hacks"].ToString());
+                    om = output.ToList()[0];
+
 
                 }
-                Database.instance.CloseConnection();
+                
 
 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Get Org by Name Exception, {e.Message}");
-                Database.instance.CloseConnection();
+                
             }
 
             return om;
@@ -128,18 +131,16 @@ namespace DagiCaliburn.Models
         {
             string response = "true";
 
-            string query = $"UPDATE organizers SET Name ='{name}', hacks={hacks} WHERE id = {id}";
-
+            
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    cnn.Execute($"UPDATE organizers SET Name ='{name}', hack={hacks} WHERE id = {id}");
+                    Console.WriteLine($"Update Org: {id}: {name}");
 
-                Database.instance.OpenConnection();
-
-                cmd.ExecuteNonQuery();
-
-
-                Database.instance.CloseConnection();
+                }
+                
 
 
             }
@@ -147,7 +148,7 @@ namespace DagiCaliburn.Models
             {
                 Console.WriteLine($"Update Org by Name Exception, {e.Message}");
                 response = e.Message;
-                Database.instance.CloseConnection();
+                
             }
 
             return response;
@@ -158,17 +159,16 @@ namespace DagiCaliburn.Models
         {
             string response = "true";
 
-            string query = $"DELETE FROM organizers WHERE id = {id}";
-
+            
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    cnn.Execute($"delete from organizers where id = {id}");
+                    Console.WriteLine($"Delete Org: {id}");
 
-                Database.instance.OpenConnection();
-
-                cmd.ExecuteNonQuery();
-
-                Database.instance.CloseConnection();
+                }
+                
 
 
             }
@@ -176,7 +176,7 @@ namespace DagiCaliburn.Models
             {
                 Console.WriteLine($"Delete Org by Name Exception, {e.Message}");
                 response = e.Message;
-                Database.instance.CloseConnection();
+                
             }
 
             return response;
@@ -187,30 +187,25 @@ namespace DagiCaliburn.Models
             List<OrganizerModel> orgs = new List<OrganizerModel>();
 
 
-            string query = $"SELECT * from organizers ORDER BY hacks {order}";
-
+            
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
-
-                Database.instance.OpenConnection();
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
                 {
+                    var output = cnn.Query<OrganizerModel>($"SELECT * from organizers ORDER BY hack {order}", new DynamicParameters()).ToList();
+                    
+                    orgs = output;
 
-                    orgs.Add(new OrganizerModel(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["hacks"].ToString())));
 
                 }
-                Database.instance.CloseConnection();
+               
 
 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Get Orgs Exception, {e.Message}");
-                Database.instance.CloseConnection();
+                
             }
 
             return orgs;
@@ -228,8 +223,9 @@ namespace DagiCaliburn.Models
                 {
                     for(int j =0;  j < 5; j++)
                     {
-                        next[j].hp = next[j].Hack + 1;
-                        cnn.Execute($"insert into organizers (id,hacks) values (@Id,@hp)", next[j]);
+                        //next[j].hp = next[j].Hack + 1;
+                        cnn.Execute($"UPDATE organizers SET hack={next[j].Hack+1} WHERE id = {next[j].Id}");
+                        //cnn.Execute($"insert into organizers (id,hack) values (@Id,@hp)", next[j]);
                         Console.WriteLine($"SetNetOrgs Org: {next[j].Id}");
                     }
                 }

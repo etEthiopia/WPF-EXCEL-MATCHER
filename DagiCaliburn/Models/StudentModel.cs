@@ -451,7 +451,7 @@ namespace DagiCaliburn.Models
                 {
                     foreach (StudentModel stu in mysqlmodel)
                     {
-                        cnn.Execute("insert into organizers (name, hacks) values (@Email,@HackV)", stu);
+                        cnn.Execute("insert into organizers (name, hack) values (@Email,@HackV)", stu);
                         Console.WriteLine($"SavetoSQLite Org: {stu.Name}");
                     }
                 }
