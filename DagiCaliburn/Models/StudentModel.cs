@@ -356,89 +356,87 @@ namespace DagiCaliburn.Models
             }
         }
 
-
         public static string SaveApplicants(List<StudentModel> apps)
         {
             string issues = "";
-            foreach(StudentModel sk in apps)
+            try
             {
-                string fname = sk.Name;
-                string silk = sk.Phone.ToString();
-                if(sk.Phone == 0)
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
                 {
-                    silk = "No Phone";
-                }
-                if (sk.Name.Equals(""))
-                {
-                    fname = "No Name";
-                }
-
-                if (!sk.Params)
-                {
-                    if(sk.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
+                    foreach (StudentModel sk in apps)
                     {
-                        issues += $"Error: {fname}, {silk} has Competed Before.\n"; 
-                        continue;
-                    }
-                    else if(sk.Errors.Contains("Email Parsing Error."))
-                    {
-                        issues += $"Error: {fname}, {silk} has no appropriate Email.\n";
-                        continue;
-                    }
-                }
-                string query = $"INSERT INTO competetors (email, phone, name) VALUES('{sk.Email}', {sk.Phone}, '{sk.Name}')";
-                try
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
+                        string fname = sk.Name;
+                        string silk = sk.Phone.ToString();
+                        if (sk.Phone == 0)
+                        {
+                            silk = "No Phone";
+                        }
+                        if (sk.Name.Equals(""))
+                        {
+                            fname = "No Name";
+                        }
 
-                    Database.instance.OpenConnection();
-                    cmd.ExecuteNonQuery();
-                    
-                    Database.instance.CloseConnection();
-                    issues += $"Success: {fname}, {silk} has been Saved.\n";
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"SAVE: {e.Message}");
-                    issues += $"Error: {fname}, {silk} Saving Error Occured.\n";
-                    continue;
+                        if (!sk.Params)
+                        {
+                            if (sk.Errors.Contains("THIS APPLICANT HAS COMPETED BEFORE."))
+                            {
+                                issues += $"Error: {fname}, {silk} has Competed Before.\n";
+                                continue;
+                            }
+                            else if (sk.Errors.Contains("Email Parsing Error."))
+                            {
+                                issues += $"Error: {fname}, {silk} has no appropriate Email.\n";
+                                continue;
+                            }
+                        }
+                        try
+                        {
+                            cnn.Execute("insert into competetors (email,phone,name) values (@Email,@Phone,@Name)", sk);
+                            Console.WriteLine($"SaveApplicants Org: {sk.Name}");
+                            issues += $"Success: {fname}, {silk} has been Saved.\n";
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"SAVE Error: {e.Message}");
+                            issues += $"Error: {fname}, {silk} Saving Error Occured.\n";
+                            continue;
+                        }
+                    }
+                    return issues;
                 }
             }
-            return issues;
+            catch(Exception e)
+            {
+                Console.WriteLine($"General SaveApplicants Error: {e.Message}");
+                return issues;
+            }
+            
         }
 
-        private static bool CheckForDuplicate(string email)
+        public static bool CheckForDuplicate(string email)
         {
-            
-                
-                string query = $"SELECT COUNT(number) from competetors WHERE email = '{email}'";
+
                 bool dup = false;
                 try
                 {
-                    MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
-
-                    Database.instance.OpenConnection();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        if(int.Parse(reader["Count(number)"].ToString()) > 0)
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    var output = cnn.Query<string>($"select COUNT(number) from competetors WHERE email = '{email}'").AsList();
+                    Console.WriteLine($"DUP COUNT: {output[0]}");
+                    
+                    if(int.Parse(output[0]) > 0)
                     {
                         dup = true;
                     }
-                        
+                    
 
-
-                    }
-                Database.instance.CloseConnection();
-
+                }
 
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Duplicate Exception, {e.Message}");
-                Database.instance.CloseConnection();
+                    Console.WriteLine($"Duplicate Exception: {e.Message}");
+                
             }
 
                 return dup;
