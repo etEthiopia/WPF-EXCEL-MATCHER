@@ -99,18 +99,18 @@ namespace DagiCaliburn.Models
         {
             string response = "true";
 
-            string query = $"INSERT INTO organizers (Name) VALUES('{name}')";
-
+            
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
-
-                Database.instance.OpenConnection();
-
-                cmd.ExecuteNonQuery();
-
-               
-                Database.instance.CloseConnection();
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    OrganizerModel org = new OrganizerModel();
+                    org.Name = name;
+                        cnn.Execute($"insert into organizers (name) values (@Name)", org);
+                        Console.WriteLine($"Add Org: {name}");
+                    
+                }
+                
 
 
             }
@@ -118,7 +118,7 @@ namespace DagiCaliburn.Models
             {
                 Console.WriteLine($"Insert Org by Name Exception, {e.Message}");
                 response = e.Message;
-                Database.instance.CloseConnection();
+                
             }
 
             return response;
