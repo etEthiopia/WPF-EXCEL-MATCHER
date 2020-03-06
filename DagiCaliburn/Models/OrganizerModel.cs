@@ -1,6 +1,9 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ namespace DagiCaliburn.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Hack { get; set; }
+        private int hp { get; set; }
 
         public static List<string> GetOrgsList()
         {
@@ -217,30 +221,24 @@ namespace DagiCaliburn.Models
 
             string response = "true";
 
-            string query = $"INSERT INTO organizers (id, hacks) VALUES ({next[0].Id}, {next[0].Hack +1})," +
-                $"({next[1].Id}, {next[1].Hack +1})," +
-                $"({next[2].Id}, {next[2].Hack +1})," +
-                $"({next[3].Id}, {next[3].Hack +1})," +
-                $"({next[4].Id}, {next[4].Hack +1})" +
-                $"ON DUPLICATE KEY UPDATE id = VALUES(id), hacks = VALUES(hacks)";
-
+            
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, Database.instance.connection);
-
-                Database.instance.OpenConnection();
-
-                cmd.ExecuteNonQuery();
-
-
-                Database.instance.CloseConnection();
-
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    for(int j =0;  j < 5; j++)
+                    {
+                        next[j].hp = next[j].Hack + 1;
+                        cnn.Execute($"insert into organizers (id,hacks) values (@Id,@hp)", next[j]);
+                        Console.WriteLine($"SetNetOrgs Org: {next[j].Id}");
+                    }
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Update Next Org by Name Exception, {e.Message}");
                 response = e.Message;
-                Database.instance.CloseConnection();
+                
             }
             return response;
         }
