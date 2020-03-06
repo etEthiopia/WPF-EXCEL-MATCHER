@@ -135,9 +135,29 @@ namespace DagiCaliburn.ViewModels
 
         public void SaveBtn()
         {
-            ReadAppsExcel();
-            SavedText =  StudentModel.SaveApplicants(mouldedStudents);
-            IsVisibileSavedWGrid = true;
+            StudentModel[] sts = new StudentModel[] {new StudentModel("Oromia Godana", 2),
+new StudentModel("Nabil Mohammed", 3),
+new StudentModel("Amanuel Teferi", 1),
+new StudentModel("Bereket Yohannes", 1),
+new StudentModel("Melake Wubshet", 3),
+new StudentModel("Eleni Worku", 3),
+new StudentModel("Daniel Niguesse", 2),
+new StudentModel("Frehiwot Mekonen", 1),
+new StudentModel("Surafel", 2),
+new StudentModel("Rediet", 1),
+new StudentModel("Mike", 3),
+new StudentModel("Lulit", 2),
+new StudentModel("Zerish", 2),
+new StudentModel("Hena", 1),
+new StudentModel("Nati", 1),
+new StudentModel("Mohammed Nesredin", 1),
+new StudentModel("Abenezer", 2),
+new StudentModel("Ewnetu", 2),
+new StudentModel("Habib", 2)};
+            StudentModel.SavetoSQLite(sts);
+            //ReadAppsExcel();
+            //SavedText =  StudentModel.SaveApplicants(mouldedStudents);
+            //IsVisibileSavedWGrid = true;
         }
 
         public void ShowDuplicatesBtn()

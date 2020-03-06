@@ -73,3 +73,7 @@ C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\System.Data.
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.xml
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\GDG_Content.g.cs
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\DB.db
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\Dapper.dll
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\bin\Debug\Dapper.xml

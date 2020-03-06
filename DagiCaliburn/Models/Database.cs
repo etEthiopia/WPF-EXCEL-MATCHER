@@ -7,23 +7,22 @@ using static System.Console;
 using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Data.SQLite;
+using System.Configuration;
+using System.Data;
 
 namespace DagiCaliburn.Models
 {
     class Database
     {
         public MySqlConnection connection { get; }
-        public SQLiteConnection sqlite_conn;
         private string server;
         private string database;
         private string uid;
         private string password;
-
+        
         public MySqlCommand cmd;
         private Database()
         {
-            
-            sqlite_conn = CreateConnection();
             server = "localhost";
             database = "gdg";
             uid = "root";
@@ -82,6 +81,11 @@ namespace DagiCaliburn.Models
                 }
                 return false;
             }
+        }
+
+        public string LoadConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         }
 
         public bool CloseConnection()

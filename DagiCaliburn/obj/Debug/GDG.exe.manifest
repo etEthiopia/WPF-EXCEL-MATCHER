@@ -103,6 +103,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Dapper.dll" size="190464">
+      <assemblyIdentity name="Dapper" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nwCRoraRx3v4bxzFjepbnDXakRhFSpQtjUmdW51dLf8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="De.TorstenMandelkow.MetroChart.dll" size="94720">
       <assemblyIdentity name="De.TorstenMandelkow.MetroChart" version="0.9.5818.20693" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -139,14 +151,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GDG.exe" size="265688">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GDG.exe" size="267224">
       <assemblyIdentity name="GDG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/MhOxCij1yOdHmMr6xIs0I25UONb3KFvhrlA/h7EoWM=</dsig:DigestValue>
+        <dsig:DigestValue>QF22fx2VTd+9tLROZ8qR/aItT2REzQ2W9pGp5qiCi00=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -354,13 +366,22 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="GDG.exe.config" size="1309">
+  <file name="DB.db" size="20480">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>hI8RZUeK53gFi+tYXRC3gVFh7K6uFsljXl4zMXnEvic=</dsig:DigestValue>
+      <dsig:DigestValue>ZKcW8Qj2EwmpGQuh3+GCT+lT/wfepJqxMRx8EvqQYSg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="GDG.exe.config" size="1465">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>OLpiwG9+7idsYz3FJcuNYGize3G8EI85WCy3ddc4Zsg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="logoo_Edz_icon.ico" size="25952">

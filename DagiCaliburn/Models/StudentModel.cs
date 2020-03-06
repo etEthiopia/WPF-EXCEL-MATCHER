@@ -1,6 +1,8 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -39,30 +41,29 @@ namespace DagiCaliburn.Models
         public string Type { get { return _type; } set { _type = value; } }
         public char Gender { get { return _gender; } set { _gender = value; } }
         public int Score { get { return _score; } set { _score = value; } }
+        public int HackV { get; set; }
+        public string ph { get; set; }
 
         public List<StudentModel> Team { get { return _team; } set { _team = value; } }
 
         public StudentModel() { }
 
-        public static void CreateTable()
-        {
-            try
-            {
-                SQLiteCommand sqlite_cmd;
-                string Createsql = "CREATE TABLE IF NOT EXISTS Students " +
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "name VARCHAR(200), email VARCHAR (200) UNIQUE, " +
-                    "phone INTEGER, hack INTEGER)";
-                sqlite_cmd = Database.instance.sqlite_conn.CreateCommand();
-                sqlite_cmd.CommandText = Createsql;
-                sqlite_cmd.ExecuteNonQuery();
-                Console.WriteLine($"DONE CT");
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine($"SQLITE CT: {e.Message}");
-            }
+        
+        
 
+        public StudentModel(string email, int hack, int phone = 0, string name = "")
+        {
+            Email = email;
+            if (phone.Equals(0))
+            {
+                ph = null;
+            }
+            else
+            {
+                ph = phone.ToString();
+            }
+            Name = name;
+            HackV = hack;
 
         }
 
@@ -441,6 +442,29 @@ namespace DagiCaliburn.Models
             }
 
                 return dup;
+            
+        }
+
+        public static bool SavetoSQLite(StudentModel[] mysqlmodel)
+        {
+            try
+            {
+                using (IDbConnection cnn = new SQLiteConnection(Database.instance.LoadConnectionString()))
+                {
+                    foreach (StudentModel stu in mysqlmodel)
+                    {
+                        cnn.Execute("insert into organizers (name, hacks) values (@Email,@HackV)", stu);
+                        Console.WriteLine($"SavetoSQLite Org: {stu.Name}");
+                    }
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"SavetoSQLite Error: {e.Message}");
+                return false;
+            }
+
             
         }
     }
