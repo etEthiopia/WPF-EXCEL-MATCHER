@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Debug\
+C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\obj\Release\
 DagiCaliburn
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Dagi\source\repos\ETGDGRegistration\DagiCaliburn\App.xaml
 4989945316
 1-1736674200
-22279683273
-1021468169765
+221170165788
+102-1527118181
 Views\AnalyzeView.xaml;Views\ApplicantsView.xaml;Views\IndexView.xaml;Views\OrganizersView.xaml;
 
 True

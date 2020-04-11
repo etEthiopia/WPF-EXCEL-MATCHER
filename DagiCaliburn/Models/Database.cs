@@ -18,8 +18,6 @@ namespace DagiCaliburn.Models
         private Database()
         {
             
-            
-
         }
         public static Database instance = new Database();
 
